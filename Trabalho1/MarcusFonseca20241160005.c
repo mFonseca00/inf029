@@ -133,7 +133,7 @@ int q1(char data[])
         }
     }
 
-    printf("%s\n", data);
+    // printf("%s\n", data);
 
     if (datavalida)
         return 1;
