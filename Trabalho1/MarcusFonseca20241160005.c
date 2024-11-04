@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include "MarcusFonseca20241160005.h" // Substitua pelo seu arquivo de header renomeado
 #include <stdlib.h>
+#include <string.h>
 
 DataQuebrada quebraData(char data[]);
 
@@ -58,12 +59,12 @@ int somar(int x, int y)
  */
 int fatorial(int x)
 { //função utilizada para testes
-  int i, fat = 1;
+    int i, fat = 1;
     
-  for (i = x; i > 1; i--)
-    fat = fat * i;
+    for (i = x; i > 1; i--)
+        fat = fat * i;
     
-  return fat;
+    return fat;
 }
 
 int teste(int a)
@@ -82,7 +83,9 @@ int teste(int a)
 @objetivo
     Validar uma data
 @entrada
-    uma string data. Formatos que devem ser aceitos: dd/mm/aaaa, onde dd = dia, mm = mês, e aaaa, igual ao ano. dd em mm podem ter apenas um digito, e aaaa podem ter apenas dois digitos.
+    uma string data. Formatos que devem ser aceitos: dd/mm/aaaa,
+    onde dd = dia, mm = mês, e aaaa, igual ao ano.
+    dd em mm podem ter apenas um digito, e aaaa podem ter apenas dois digitos.
 @saida
     0 -> se data inválida
     1 -> se data válida
@@ -92,17 +95,50 @@ int teste(int a)
  */
 int q1(char data[])
 {
-  int datavalida = 1;
+    int datavalida = 0;
+    //quebrar a string data em strings sDia, sMes, sAno
+    DataQuebrada dataq; //variável tipo DataQuebrada que irá armazenar os valores separados
+    if(strlen(data) <= 10){ //testa se o tamanho da string e menor ou igual a 10 (máximo tamanho para a data conforme enunciado)
+        dataq = quebraData(data); //chamada da função quebraData que veio pronta no código para quebrar data em dia, mês e ano
+        if(dataq.valido == 1 && dataq.iMes >= 1 && dataq.iMes <= 12){ //testa se a data é valida após função de quebrar data
 
-  //quebrar a string data em strings sDia, sMes, sAno
+            if(dataq.iAno<100){//testa se o ano tem dois dígitos
+                dataq.iAno = dataq.iAno+2000;
+            }
+            
+            //separa os dois ultimos dígitos do ano
+            int d1A = dataq.iAno % 10;
+            int d2A = (dataq.iAno % 100) / 10;
 
+            int bissexto = 0;//armazena se o ano é bissexto (1 para sim e 0 para não)
+            if((d1A == 0 && d2A == 0 && dataq.iAno %400 == 0)||((d1A != 0 || d2A != 0) && dataq.iAno %4 == 0)){ //testa se o ano é bissexto
+                bissexto = 1;
+            }
+            
+            if((dataq.iMes == 1 || dataq.iMes == 3 || dataq.iMes == 5 || dataq.iMes == 7 || dataq.iMes == 8 || dataq.iMes == 10 || dataq.iMes == 12) && dataq.iDia >= 1 && dataq .iDia <= 31){
+                datavalida = 1;
+            }
+            else if((dataq.iMes == 4 || dataq.iMes == 6 || dataq.iMes == 9 || dataq.iMes == 11) && dataq.iDia >= 1 && dataq .iDia <= 30){
+                datavalida = 1;
+            }
+            else if(bissexto == 0 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 28){
+                datavalida = 1;
+            }
+            else if(bissexto == 1 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 29){
+                datavalida = 1;
+            }
+        }
+        else{
+            datavalida = 0;
+        }
+    }
 
-  //printf("%s\n", data);
+    printf("%s\n", data);
 
-  if (datavalida)
-      return 1;
-  else
-      return 0;
+    if (datavalida)
+        return 1;
+    else
+        return 0;
 }
 
 
@@ -223,7 +259,7 @@ int q6(int numerobase, int numerobusca)
 
 DataQuebrada quebraData(char data[]){
   DataQuebrada dq;
-  char sDia[3];
+    char sDia[3];
 	char sMes[3];
 	char sAno[5];
 	int i; 
@@ -236,7 +272,7 @@ DataQuebrada quebraData(char data[]){
 	}else {
 		dq.valido = 0;
     return dq;
-  }  
+    }  
 	
 
 	int j = i + 1; //anda 1 cada para pular a barra
