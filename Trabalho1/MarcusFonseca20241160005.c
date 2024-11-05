@@ -170,15 +170,36 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       dma.retorno = 3;
       return dma;
     }else{
-      //verifique se a data final não é menor que a data inicial
-      
-      //calcule a distancia entre as datas
+      DataQuebrada dataFinalQ, dataInicialQ; //variáveis tipo DataQuebrada que irão armazenar os valores separados
+      dataInicialQ = quebraData(datainicial); //chamada da função quebraData para quebrar data em dia, mês e ano
+      dataFinalQ = quebraData(datafinal); //chamada da função quebraData para quebrar data em dia, mês e ano
+      //verificando se a data final não é menor que a data inicial
+      if(dataFinalQ.iAno < dataInicialQ.iAno || ( dataFinalQ.iAno >= dataInicialQ.iAno && dataFinalQ.iMes < dataInicialQ.iMes) || ( dataFinalQ.iAno >= dataInicialQ.iAno && dataFinalQ.iMes >= dataInicialQ.iMes && dataFinalQ.iDia < dataInicialQ.iDia )){
+        dma.retorno = 4;
+     	return dma;
+      }
+      else{
+	//calculando a distancia entre as datas
+	      
+	//contabilizar anos
+	      
 
+	//contabilizar meses
+	dma.qtdMeses = (12 - dataInicialQ.iMes) + dataFinalQ.iMes;
+	if(dma.qtdMeses == dataFinalQ.iMes && dataInicialQ.iAno == dataInicialQ.iAno){//caso a diferênca seja só em dias de um mesmo mês
+	  dma.qtdMeses = 0;
+	}
+	if(dma.qtdMeses >= 12){ //caso sejam contabilizados mais de 12 meses, adiciona 1 ano (acho que o incremento no ano vai ser retirado após a contrução do trecho referente a ele)
+	  dma.qtdMeses = dma.qtdMeses - 12;
+	  dma.qtdAnos++;
+	}
 
-      //se tudo der certo
-      dma.retorno = 1;
-      return dma;
-      
+	//contabilizar Dias
+	// para realizar diferença de dias, utilizar antes o switch case para verificar qual o mês (ou ifs, como na questão anterior)
+	dma.retorno = 1;
+      	return dma;
+      }
+
     }
     
 }
