@@ -181,21 +181,27 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
       else{
 	//calculando a distancia entre as datas
 	      
-	//contabilizar anos
-	      
+     
 
 	//contabilizar meses
 	dma.qtdMeses = (12 - dataInicialQ.iMes) + dataFinalQ.iMes;
 	if(dma.qtdMeses == dataFinalQ.iMes && dataInicialQ.iAno == dataInicialQ.iAno){//caso a diferênca seja só em dias de um mesmo mês
 	  dma.qtdMeses = 0;
 	}
-	if(dma.qtdMeses >= 12){ //caso sejam contabilizados mais de 12 meses, adiciona 1 ano (acho que o incremento no ano vai ser retirado após a contrução do trecho referente a ele)
+	//contabilizar anos e atualizar meses
+	if(dma.qtdMeses >= 12 && dataFinalQ.iAno > dataInicialQ.iAno){ //caso sejam contabilizados mais de 12 meses, e o ano final seja diferente do inicial
 	  dma.qtdMeses = dma.qtdMeses - 12;
-	  dma.qtdAnos++;
+	  dma.qtdAnoss = dataFinalQ.iAno - dataInicialQ.iAno;
 	}
-
+	else{
+	  dma.qtdAnoss = 0;
+	}
 	//contabilizar Dias
+	
 	// para realizar diferença de dias, utilizar antes o switch case para verificar qual o mês (ou ifs, como na questão anterior)
+
+
+	      
 	dma.retorno = 1;
       	return dma;
       }
