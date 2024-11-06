@@ -194,13 +194,40 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 	  dma.qtdAnoss = dataFinalQ.iAno - dataInicialQ.iAno;
 	}
 	else{
-	  dma.qtdAnoss = 0;
+	  dma.qtdAnos = 0;
 	}
-	//contabilizar Dias
+
+	//Verificação se o ano é bissexto
+
+	int d1A = dataq.iAno % 10;
+        int d2A = (dataq.iAno % 100) / 10;
+
+        int bissexto = 0;//armazena se o ano é bissexto (1 para sim e 0 para não)
 	
-	// para realizar diferença de dias, utilizar antes o switch case para verificar qual o mês (ou ifs, como na questão anterior)
+        if((d1A == 0 && d2A == 0 && dataq.iAno %400 == 0)||((d1A != 0 || d2A != 0) && dataq.iAno %4 == 0)){ //testa se o ano é bissexto
+          bissexto = 1;
+        }
+	      
+	//contabilizar Dias
 
+	if(dataFinalQ.iAno == dataInicialQ.iAno && dataFinalQ.iAno == dataInicialQ.iAno){ //caso a diferença de dias seja no mesmo mês
+		dma.qtdDias = dataFinalQ.iDia - dataInicialQ.iDia;
+	}
 
+	else{  // caso o mês ou o ano sejam diferentes
+	        if((dataq.iMes == 1 || dataq.iMes == 3 || dataq.iMes == 5 || dataq.iMes == 7 || dataq.iMes == 8 || dataq.iMes == 10 || dataq.iMes == 12) && dataq.iDia >= 1 && dataq .iDia <= 31){
+	          //verificação da quantidade de dias
+	        }
+	        else if((dataq.iMes == 4 || dataq.iMes == 6 || dataq.iMes == 9 || dataq.iMes == 11) && dataq.iDia >= 1 && dataq .iDia <= 30){
+	          //verificação
+	        }
+	        else if(bissexto == 0 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 28){
+	          //verificação
+	        }
+	        else if(bissexto == 1 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 29){
+	          //verificação
+	        }
+	}
 	      
 	dma.retorno = 1;
       	return dma;
