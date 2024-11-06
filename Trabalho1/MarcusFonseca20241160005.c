@@ -190,7 +190,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 	  dma.qtdMeses = 0;
 	}
 	//contabilizar anos e atualizar meses
-	if(dma.qtdMeses >= 12 && dataFinalQ.iAno > dataInicialQ.iAno){ //caso sejam contabilizados mais de 12 meses, e o ano final seja diferente do inicial
+	if(dma.qtdMeses >= 12 && dataFinalQ.iAno > dataInicialQ.iAno){ //caso sejam contabilizados mais de 12 meses, e o ano final seja diferente do inicial VERIFICAR!!!!!!!!
 	  dma.qtdMeses = dma.qtdMeses - 12;
 	  dma.qtdAnoss = dataFinalQ.iAno - dataInicialQ.iAno;
 	}
@@ -203,8 +203,6 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 	int d1A = dataq.iAno % 10;
         int d2A = (dataq.iAno % 100) / 10;
 
-        
-	      
 	//contabilizar Dias
 
 	if(dataFinalQ.iAno == dataInicialQ.iAno && dataFinalQ.iAno == dataInicialQ.iAno){ //caso a diferença de dias seja no mesmo mês
@@ -221,20 +219,29 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 	        }
 		
 	        if((dataq.iMes == 1 || dataq.iMes == 3 || dataq.iMes == 5 || dataq.iMes == 7 || dataq.iMes == 8 || dataq.iMes == 10 || dataq.iMes == 12) && dataq.iDia >= 1 && dataq .iDia <= 31){
-	          //verificação da quantidade de dias do mês (total)
+	          //atualização da quantidade de dias do mês (total)
+		  totalDias = 31;
 		  //verificação da diferença de dias
+			
+		  
 	        }
 	        else if((dataq.iMes == 4 || dataq.iMes == 6 || dataq.iMes == 9 || dataq.iMes == 11) && dataq.iDia >= 1 && dataq .iDia <= 30){
-	          //verificação da quantidade de dias do mês (total)
+	          //atualização da quantidade de dias do mês (total)
+		  totalDias = 30;
 		  //verificação da diferença de dias
+		  
 	        }
 	        else if(bissexto == 0 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 28){
-	          //verificação da quantidade de dias do mês (total)
+	          //atualização da quantidade de dias do mês (total)
+		  totalDias = 28;
 		  //verificação da diferença de dias
+		  
 	        }
 	        else if(bissexto == 1 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 29){
-	          //verificação da quantidade de dias do mês (total)
+	          //atualização da quantidade de dias do mês (total)
+		  totalDias = 29;
 		  //verificação da diferença de dias
+		  
 	        }
 	}
 	      
