@@ -112,6 +112,7 @@ int q1(char data[])
 
             int bissexto = 0;//armazena se o ano é bissexto (1 para sim e 0 para não)
             if((d1A == 0 && d2A == 0 && dataq.iAno %400 == 0)||((d1A != 0 || d2A != 0) && dataq.iAno %4 == 0)){ //testa se o ano é bissexto
+		
                 bissexto = 1;
             }
             
@@ -202,11 +203,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 	int d1A = dataq.iAno % 10;
         int d2A = (dataq.iAno % 100) / 10;
 
-        int bissexto = 0;//armazena se o ano é bissexto (1 para sim e 0 para não)
-	
-        if((d1A == 0 && d2A == 0 && dataq.iAno %400 == 0)||((d1A != 0 || d2A != 0) && dataq.iAno %4 == 0)){ //testa se o ano é bissexto
-          bissexto = 1;
-        }
+        
 	      
 	//contabilizar Dias
 
@@ -214,18 +211,30 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 		dma.qtdDias = dataFinalQ.iDia - dataInicialQ.iDia;
 	}
 
+	int totalDias = 0; //armazena o total de dias daquele mês
+
 	else{  // caso o mês ou o ano sejam diferentes
+		int bissexto = 0;//armazena se o ano é bissexto (1 para sim e 0 para não)
+	
+	        if((d1A == 0 && d2A == 0 && dataq.iAno %400 == 0)||((d1A != 0 || d2A != 0) && dataq.iAno %4 == 0)){ //testa se o ano é bissexto
+	          bissexto = 1;
+	        }
+		
 	        if((dataq.iMes == 1 || dataq.iMes == 3 || dataq.iMes == 5 || dataq.iMes == 7 || dataq.iMes == 8 || dataq.iMes == 10 || dataq.iMes == 12) && dataq.iDia >= 1 && dataq .iDia <= 31){
-	          //verificação da quantidade de dias
+	          //verificação da quantidade de dias do mês (total)
+		  //verificação da diferença de dias
 	        }
 	        else if((dataq.iMes == 4 || dataq.iMes == 6 || dataq.iMes == 9 || dataq.iMes == 11) && dataq.iDia >= 1 && dataq .iDia <= 30){
-	          //verificação
+	          //verificação da quantidade de dias do mês (total)
+		  //verificação da diferença de dias
 	        }
 	        else if(bissexto == 0 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 28){
-	          //verificação
+	          //verificação da quantidade de dias do mês (total)
+		  //verificação da diferença de dias
 	        }
 	        else if(bissexto == 1 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 29){
-	          //verificação
+	          //verificação da quantidade de dias do mês (total)
+		  //verificação da diferença de dias
 	        }
 	}
 	      
