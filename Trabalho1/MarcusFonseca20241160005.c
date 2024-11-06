@@ -165,37 +165,36 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
     DiasMesesAnos dma;
 
     if (q1(datainicial) == 0){
-      dma.retorno = 2;
-      return dma;
+        dma.retorno = 2;
+        return dma;
     }else if (q1(datafinal) == 0){
-      dma.retorno = 3;
-      return dma;
+        dma.retorno = 3;
+        return dma;
     }else{
-      DataQuebrada dataFinalQ, dataInicialQ; //variáveis tipo DataQuebrada que irão armazenar os valores separados
-      dataInicialQ = quebraData(datainicial); //chamada da função quebraData para quebrar data em dia, mês e ano
-      dataFinalQ = quebraData(datafinal); //chamada da função quebraData para quebrar data em dia, mês e ano
-      //verificando se a data final não é menor que a data inicial
-      if(dataFinalQ.iAno < dataInicialQ.iAno || ( dataFinalQ.iAno >= dataInicialQ.iAno && dataFinalQ.iMes < dataInicialQ.iMes) || ( dataFinalQ.iAno >= dataInicialQ.iAno && dataFinalQ.iMes >= dataInicialQ.iMes && dataFinalQ.iDia < dataInicialQ.iDia )){
-        dma.retorno = 4;
-     	return dma;
-      }
-      else{
+        DataQuebrada dataFinalQ, dataInicialQ; //variáveis tipo DataQuebrada que irão armazenar os valores separados
+        dataInicialQ = quebraData(datainicial); //chamada da função quebraData para quebrar data em dia, mês e ano
+        dataFinalQ = quebraData(datafinal); //chamada da função quebraData para quebrar data em dia, mês e ano
+        //verificando se a data final não é menor que a data inicial
+        if(dataFinalQ.iAno < dataInicialQ.iAno || ( dataFinalQ.iAno >= dataInicialQ.iAno && dataFinalQ.iMes < dataInicialQ.iMes) || ( dataFinalQ.iAno >= dataInicialQ.iAno && dataFinalQ.iMes >= dataInicialQ.iMes && dataFinalQ.iDia < dataInicialQ.iDia )){
+            dma.retorno = 4;
+            return dma;
+        }
+        else{
+        
 	//calculando a distancia entre as datas
-	      
-     
 
 	//contabilizar meses
 	dma.qtdMeses = (12 - dataInicialQ.iMes) + dataFinalQ.iMes;
-	if(dma.qtdMeses == dataFinalQ.iMes && dataInicialQ.iAno == dataInicialQ.iAno){//caso a diferênca seja só em dias de um mesmo mês
-	  dma.qtdMeses = 0;
+	if(dataInicialQ.iMes == dataFinalQ.iMes && dataInicialQ.iAno == dataInicialQ.iAno){//caso a diferênca seja só em dias de um mesmo mês
+	    dma.qtdMeses = 0;
 	}
 	//contabilizar anos e atualizar meses
 	if(dma.qtdMeses >= 12 && dataFinalQ.iAno > dataInicialQ.iAno){ //caso sejam contabilizados mais de 12 meses, e o ano final seja diferente do inicial VERIFICAR!!!!!!!!
-	  dma.qtdMeses = dma.qtdMeses - 12;
-	  dma.qtdAnoss = dataFinalQ.iAno - dataInicialQ.iAno;
+	    dma.qtdMeses = dma.qtdMeses - 12;
+	    dma.qtdAnoss = dataFinalQ.iAno - dataInicialQ.iAno;
 	}
 	else{
-	  dma.qtdAnos = 0;
+	    dma.qtdAnos = 0;
 	}
 
 	//Verificação se o ano é bissexto
@@ -206,43 +205,29 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 	//contabilizar Dias
 
 	if(dataFinalQ.iAno == dataInicialQ.iAno && dataFinalQ.iAno == dataInicialQ.iAno){ //caso a diferença de dias seja no mesmo mês
-		dma.qtdDias = dataFinalQ.iDia - dataInicialQ.iDia;
+		dma.qtdDias = dataFinalQ.iDia - dataInicialQ.iDia; //calculo da diferença de dias
 	}
 
-	int totalDias = 0; //armazena o total de dias daquele mês
 
 	else{  // caso o mês ou o ano sejam diferentes
 		int bissexto = 0;//armazena se o ano é bissexto (1 para sim e 0 para não)
 	
-	        if((d1A == 0 && d2A == 0 && dataq.iAno %400 == 0)||((d1A != 0 || d2A != 0) && dataq.iAno %4 == 0)){ //testa se o ano é bissexto
-	          bissexto = 1;
-	        }
-		
-	        if((dataq.iMes == 1 || dataq.iMes == 3 || dataq.iMes == 5 || dataq.iMes == 7 || dataq.iMes == 8 || dataq.iMes == 10 || dataq.iMes == 12) && dataq.iDia >= 1 && dataq .iDia <= 31){
-	          //atualização da quantidade de dias do mês (total)
-		  totalDias = 31;
-		  //verificação da diferença de dias
-			
-		  
-	        }
-	        else if((dataq.iMes == 4 || dataq.iMes == 6 || dataq.iMes == 9 || dataq.iMes == 11) && dataq.iDia >= 1 && dataq .iDia <= 30){
-	          //atualização da quantidade de dias do mês (total)
-		  totalDias = 30;
-		  //verificação da diferença de dias
-		  
-	        }
-	        else if(bissexto == 0 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 28){
-	          //atualização da quantidade de dias do mês (total)
-		  totalDias = 28;
-		  //verificação da diferença de dias
-		  
-	        }
-	        else if(bissexto == 1 && dataq.iMes == 2 && dataq.iDia >= 1 && dataq .iDia <= 29){
-	          //atualização da quantidade de dias do mês (total)
-		  totalDias = 29;
-		  //verificação da diferença de dias
-		  
-	        }
+        if((d1A == 0 && d2A == 0 && dataInicialQ.Dia %400 == 0)||((d1A != 0 || d2A != 0) && dataInicialQ.Dia %4 == 0)){ //testa se o ano é bissexto
+            bissexto = 1;
+        }
+    
+        if(dataInicialQ.iMes == 1 || dataInicialQ.iMes == 3 || dataInicialQ.iMes == 5 || dataInicialQ.iMes == 7 || dataInicialQ.iMes == 8 || dataInicialQ.iMes == 10 || dataInicialQ.iMes == 12){
+            dma.qtdDias = 31 - dataInicialQ.Dia; //calculo da diferença de dias
+        }
+        else if(dataInicialQ.iMes == 4 || dataInicialQ.iMes == 6 || dataInicialQ.iMes == 9 || dataInicialQ.iMes == 11){
+            dma.qtdDias = 30 - dataInicialQ.Dia; //calculo da diferença de dias
+        }
+        else if(bissexto == 0 && dataInicialQ.iMes == 2){
+            dma.qtdDias = 28 - dataInicialQ.Dia; //calculo da diferença de dias
+        }
+        else if(bissexto == 1 && dataInicialQ.iMes == 2){
+            dma.qtdDias = 29 - dataInicialQ.Dia; //calculo da diferença de dias
+        }
 	}
 	      
 	dma.retorno = 1;
