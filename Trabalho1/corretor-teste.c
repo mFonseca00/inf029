@@ -31,6 +31,7 @@ DataQuebrada quebraData(char data[]);
 
 void testQ1();
 void testQ2();
+void testQ3();
 
 
 DataQuebrada quebraData(char data[]);
@@ -173,7 +174,22 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
     
 }
 
+/*
+ Q3 = encontrar caracter em texto
+ @objetivo
+    Pesquisar quantas vezes um determinado caracter ocorre em um texto
+ @entrada
+    uma string texto, um caracter c e um inteiro que informa se é uma pesquisa Case Sensitive ou não. Se isCaseSensitive = 1, a pesquisa deve considerar diferenças entre maiúsculos e minúsculos.
+        Se isCaseSensitive != 1, a pesquisa não deve  considerar diferenças entre maiúsculos e minúsculos.
+ @saida
+    Um número n >= 0.
+ */
+int q3(char *texto, char c, int isCaseSensitive)
+{
+    int qtdOcorrencias = -1;
 
+    return qtdOcorrencias;
+}
 
 DataQuebrada quebraData(char data[]){
   DataQuebrada dq;
@@ -238,12 +254,13 @@ int main()
 
     // printf("\n Q1\n\n");
     // testQ1();
-    printf("\n Q2\n\n");
-    testQ2();
-    /*testQ3();
-    testQ4();
-    testQ5();
-    testQ6();*/
+    // printf("\n Q2\n\n");
+    // testQ2();
+    printf("\n Q3\n\n");
+    testQ3();
+    // testQ4();
+    // testQ5();
+    // testQ6();
 }
 
 
@@ -314,5 +331,16 @@ void testQ2()
     printf("%d\n", dma.qtdDias == 1);
     printf("%d\n", dma.qtdMeses == 1);
     printf("%d\n", dma.qtdAnos == 0);
+}
+
+void testQ3()
+{
+    char str[250];
+    strcpy(str, "Renato Lima Novais");
+    printf("%d\n", q3(str, 'a', 0) == 3);
+    printf("%d\n", q3(str, 'b', 0) == 0);
+    printf("%d\n", q3(str, 'l', 1) == 0);
+    printf("%d\n", q3(str, 'l', 0) == 1);
+    printf("%d\n", q3(str, 'L', 0) == 1);
 }
 
