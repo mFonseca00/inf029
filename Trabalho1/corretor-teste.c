@@ -25,19 +25,13 @@ typedef struct Qtd
 
 int q1(char data[]);
 DiasMesesAnos q2(char datainicial[], char datafinal[]);
-int q3(char *texto, char c, int isCaseSensitive);
-int q4(char *strTexto, char *strBusca, int posicoes[30]);
-int q5(int num);
-int q6(int numerobase, int numerobusca);
+
 DataQuebrada quebraData(char data[]);
 
 
 void testQ1();
 void testQ2();
-void testQ3();
-void testQ4();
-void testQ5();
-void testQ6();
+
 
 DataQuebrada quebraData(char data[]);
 
@@ -183,38 +177,6 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 }
 
 
-int q3(char *texto, char c, int isCaseSensitive)
-{
-    int qtdOcorrencias = -1;
-
-    return qtdOcorrencias;
-}
-
-
-int q4(char *strTexto, char *strBusca, int posicoes[30])
-{
-    int qtdOcorrencias = -1;
-
-    return qtdOcorrencias;
-}
-
-
-int q5(int num)
-{
-
-    return num;
-}
-
-
-
-int q6(int numerobase, int numerobusca)
-{
-    int qtdOcorrencias;
-    return qtdOcorrencias;
-}
-
-
-
 
 DataQuebrada quebraData(char data[]){
   DataQuebrada dq;
@@ -357,62 +319,3 @@ void testQ2()
     printf("%d\n", dma.qtdAnos == 0);
 }
 
-void testQ3()
-{
-    char str[250];
-    strcpy(str, "Renato Lima Novais");
-    printf("%d\n", q3(str, 'a', 0) == 3);
-    printf("%d\n", q3(str, 'b', 0) == 0);
-    printf("%d\n", q3(str, 'l', 1) == 0);
-    printf("%d\n", q3(str, 'l', 0) == 1);
-    printf("%d\n", q3(str, 'L', 0) == 1);
-}
-
-void testQ4()
-{
-    char strTexto[250];
-    char strBusca[50];
-    int posicoes[30];
-    int i;
-    for (i = 0; i < 30; i++)
-    {
-        posicoes[i] = -1;
-    }
-    strcpy(strTexto, "Laboratorio de programacao: para ratos de programação");
-    strcpy(strBusca, "rato");
-    printf("%d\n", q4(strTexto, strBusca, posicoes) == 2);
-    printf("%d\n", posicoes[0] == 5);
-    printf("%d\n", posicoes[1] == 8);
-    printf("%d\n", posicoes[2] == 34);
-    printf("%d\n", posicoes[3] == 37);
-
-    for (i = 0; i < 30; i++)
-    {
-        posicoes[i] = -1;
-    }
-    strcpy(strTexto, "Olá, o mundo é muito grande. Tem muitas pessoas, e muitos problemas");
-    strcpy(strBusca, "mui");
-    printf("%d\n", q4(strTexto, strBusca, posicoes) == 3);
-    printf("%d\n", posicoes[0] == 16);
-    printf("%d\n", posicoes[1] == 18);
-    printf("%d\n", posicoes[2] == 34);
-    printf("%d\n", posicoes[3] == 36);
-    printf("%d\n", posicoes[4] == 52);
-    printf("%d\n", posicoes[5] == 54);
-}
-
-void testQ5()
-{
-    printf("%d\n", q5(345) == 543);
-    printf("%d\n", q5(78) == 87);
-    printf("%d\n", q5(3) == 3);
-    printf("%d\n", q5(5430) == 345);
-}
-
-void testQ6()
-{
-    printf("%d\n", q6(34567368, 3) == 2);
-    printf("%d\n", q6(34567368, 4576) == 0);
-    printf("%d\n", q6(3539343, 3) == 4);
-    printf("%d\n", q6(3539343, 39) == 1);
-}
