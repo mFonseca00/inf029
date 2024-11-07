@@ -203,7 +203,7 @@ int q3(char *texto, char c, int isCaseSensitive)
             }
         }
     }
-    else{       //considerar diferenças entre maiúsculo e minúsculo
+    else{       //considerar diferenças entre maiúsculo e minúsculo   ERRO NO TESTE
         // verificação dos caracteres (função)
         for(int i=0; i<=strlen(texto);i++){
             if(c==texto[i]){
