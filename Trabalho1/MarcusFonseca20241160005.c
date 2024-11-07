@@ -212,7 +212,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 	else{  // caso o mês ou o ano sejam diferentes
 		int bissexto = 0;//armazena se o ano é bissexto (1 para sim e 0 para não)
 	
-        if((d1A == 0 && d2A == 0 && dataInicialQ.iDia %400 == 0)||((d1A != 0 || d2A != 0) && dataInicialQ.iDia %4 == 0)){ //testa se o ano é bissexto
+        if((d1A == 0 && d2A == 0 && dataInicialQ.iAno %400 == 0)||((d1A != 0 || d2A != 0) && dataInicialQ.iAno %4 == 0)){ //testa se o ano é bissexto
             bissexto = 1;
         }
     
