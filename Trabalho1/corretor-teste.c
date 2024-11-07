@@ -22,8 +22,7 @@ typedef struct Qtd
 
 } DiasMesesAnos;
 
-int somar(int x, int y); //função utilizada para testes
-int fatorial(int x); //função utilizada para testes
+
 int q1(char data[]);
 DiasMesesAnos q2(char datainicial[], char datafinal[]);
 int q3(char *texto, char c, int isCaseSensitive);
@@ -32,8 +31,7 @@ int q5(int num);
 int q6(int numerobase, int numerobusca);
 DataQuebrada quebraData(char data[]);
 
-void testSomar();    //função utilizada para testes
-void testFatorial(); //função utilizada para testes
+
 void testQ1();
 void testQ2();
 void testQ3();
@@ -43,71 +41,8 @@ void testQ6();
 
 DataQuebrada quebraData(char data[]);
 
-/*
-## função utilizada para testes  ##
 
- somar = somar dois valores
-@objetivo
-    Somar dois valores x e y e retonar o resultado da soma
-@entrada
-    dois inteiros x e y
-@saida
-    resultado da soma (x + y)
- */
-int somar(int x, int y)
-{
-    int soma;
-    soma = x + y;
-    return soma;
-}
 
-/*
-## função utilizada para testes  ##
-
- fatorial = fatorial de um número
-@objetivo
-    calcular o fatorial de um número
-@entrada
-    um inteiro x
-@saida
-    fatorial de x -> x!
- */
-int fatorial(int x)
-{ //função utilizada para testes
-    int i, fat = 1;
-    
-    for (i = x; i > 1; i--)
-        fat = fat * i;
-    
-    return fat;
-}
-
-int teste(int a)
-{
-    int val;
-    if (a == 2)
-        val = 3;
-    else
-        val = 4;
-
-    return val;
-}
-
-/*
- Q1 = validar data
-@objetivo
-    Validar uma data
-@entrada
-    uma string data. Formatos que devem ser aceitos: dd/mm/aaaa,
-    onde dd = dia, mm = mês, e aaaa, igual ao ano.
-    dd em mm podem ter apenas um digito, e aaaa podem ter apenas dois digitos.
-@saida
-    0 -> se data inválida
-    1 -> se data válida
- @restrições
-    Não utilizar funções próprias de string (ex: strtok)   
-    pode utilizar strlen para pegar o tamanho da string
- */
 int q1(char data[])
 {
     int datavalida = 0;
@@ -158,21 +93,6 @@ int q1(char data[])
 }
 
 
-
-/*
- Q2 = diferença entre duas datas
- @objetivo
-    Calcular a diferença em anos, meses e dias entre duas datas
- @entrada
-    uma string datainicial, uma string datafinal. 
- @saida
-    Retorna um tipo DiasMesesAnos. No atributo retorno, deve ter os possíveis valores abaixo
-    1 -> cálculo de diferença realizado com sucesso
-    2 -> datainicial inválida
-    3 -> datafinal inválida
-    4 -> datainicial > datafinal
-    Caso o cálculo esteja correto, os atributos qtdDias, qtdMeses e qtdAnos devem ser preenchidos com os valores correspondentes.
- */
 DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
 
@@ -232,16 +152,16 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
         }
     
         if(dataInicialQ.iMes == 1 || dataInicialQ.iMes == 3 || dataInicialQ.iMes == 5 || dataInicialQ.iMes == 7 || dataInicialQ.iMes == 8 || dataInicialQ.iMes == 10 || dataInicialQ.iMes == 12){
-            dma.qtdDias = 31 - dataInicialQ.iDia; //calculo da diferença de dias
+            dma.qtdDias = 31 - dataInicialQ.iDia + dataFinalQ.iDia; //calculo da diferença de dias
         }
         else if(dataInicialQ.iMes == 4 || dataInicialQ.iMes == 6 || dataInicialQ.iMes == 9 || dataInicialQ.iMes == 11){
-            dma.qtdDias = 30 - dataInicialQ.iDia; //calculo da diferença de dias
+            dma.qtdDias = 30 - dataInicialQ.iDia + dataFinalQ.iDia; //calculo da diferença de dias
         }
         else if(bissexto == 0 && dataInicialQ.iMes == 2){
-            dma.qtdDias = 28 - dataInicialQ.iDia; //calculo da diferença de dias
+            dma.qtdDias = 28 - dataInicialQ.iDia + dataFinalQ.iDia; //calculo da diferença de dias
         }
         else if(bissexto == 1 && dataInicialQ.iMes == 2){
-            dma.qtdDias = 29 - dataInicialQ.iDia; //calculo da diferença de dias
+            dma.qtdDias = 29 - dataInicialQ.iDia + dataFinalQ.iDia; //calculo da diferença de dias
         }
 	}
 	      
@@ -253,16 +173,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
     
 }
 
-/*
- Q3 = encontrar caracter em texto
- @objetivo
-    Pesquisar quantas vezes um determinado caracter ocorre em um texto
- @entrada
-    uma string texto, um caracter c e um inteiro que informa se é uma pesquisa Case Sensitive ou não. Se isCaseSensitive = 1, a pesquisa deve considerar diferenças entre maiúsculos e minúsculos.
-        Se isCaseSensitive != 1, a pesquisa não deve  considerar diferenças entre maiúsculos e minúsculos.
- @saida
-    Um número n >= 0.
- */
+
 int q3(char *texto, char c, int isCaseSensitive)
 {
     int qtdOcorrencias = -1;
@@ -270,21 +181,7 @@ int q3(char *texto, char c, int isCaseSensitive)
     return qtdOcorrencias;
 }
 
-/*
- Q4 = encontrar palavra em texto
- @objetivo
-    Pesquisar todas as ocorrências de uma palavra em um texto
- @entrada
-    uma string texto base (strTexto), uma string strBusca e um vetor de inteiros (posicoes) que irá guardar as posições de início e fim de cada ocorrência da palavra (strBusca) no texto base (texto).
- @saida
-    Um número n >= 0 correspondente a quantidade de ocorrências encontradas.
-    O vetor posicoes deve ser preenchido com cada entrada e saída correspondente. Por exemplo, se tiver uma única ocorrência, a posição 0 do vetor deve ser preenchido com o índice de início do texto, e na posição 1, deve ser preenchido com o índice de fim da ocorrencias. Se tiver duas ocorrências, a segunda ocorrência será amazenado nas posições 2 e 3, e assim consecutivamente. Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como há uma ocorrência da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
-        posicoes[0] = 13;
-        posicoes[1] = 16;
-        Observe que o índice da posição no texto deve começar ser contado a partir de 1.
-        O retorno da função, n, nesse caso seria 1;
 
- */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
     int qtdOcorrencias = -1;
@@ -292,15 +189,6 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
     return qtdOcorrencias;
 }
 
-/*
- Q5 = inverte número
- @objetivo
-    Inverter número inteiro
- @entrada
-    uma int num.
- @saida
-    Número invertido
- */
 
 int q5(int num)
 {
@@ -308,15 +196,7 @@ int q5(int num)
     return num;
 }
 
-/*
- Q6 = ocorrência de um número em outro
- @objetivo
-    Verificar quantidade de vezes da ocorrência de um número em outro
- @entrada
-    Um número base (numerobase) e um número de busca (numerobusca).
- @saida
-    Quantidade de vezes que número de busca ocorre em número base
- */
+
 
 int q6(int numerobase, int numerobusca)
 {
@@ -387,10 +267,9 @@ DataQuebrada quebraData(char data[]){
 
 int main()
 {
-    //testSomar();
-    //testFatorial();
-    printf("\n Q1\n\n");
-    testQ1();
+
+    // printf("\n Q1\n\n");
+    // testQ1();
     printf("\n Q2\n\n");
     testQ2();
     /*testQ3();
@@ -399,24 +278,7 @@ int main()
     testQ6();*/
 }
 
-void testSomar()
-{
-    printf("%d\n", somar(3, 4) == 7);
-    printf("%d\n", somar(-1, -3) == -4);
-    printf("%d\n", somar(-6, 6) == 0);
-    printf("%d\n", somar(74, 9) == 83);
-    printf("%d\n", somar(30, -9) == 21);
-    printf("%d\n", somar(-2, 8) == 6);
-    printf("%d\n", somar(1000, 99) == 1099);
 
-}
-
-void testFatorial()
-{
-    printf("%d\n", fatorial(3) == 6);
-    printf("%d\n", fatorial(1) == 1);
-    printf("%d\n", fatorial(5) == 120);
-}
 
 void testQ1()
 {

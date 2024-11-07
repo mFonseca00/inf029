@@ -217,16 +217,16 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
         }
     
         if(dataInicialQ.iMes == 1 || dataInicialQ.iMes == 3 || dataInicialQ.iMes == 5 || dataInicialQ.iMes == 7 || dataInicialQ.iMes == 8 || dataInicialQ.iMes == 10 || dataInicialQ.iMes == 12){
-            dma.qtdDias = 31 - dataInicialQ.iDia; //calculo da diferença de dias
+            dma.qtdDias = 31 - dataInicialQ.iDia + dataFinalQ.iDia; //calculo da diferença de dias
         }
         else if(dataInicialQ.iMes == 4 || dataInicialQ.iMes == 6 || dataInicialQ.iMes == 9 || dataInicialQ.iMes == 11){
-            dma.qtdDias = 30 - dataInicialQ.iDia; //calculo da diferença de dias
+            dma.qtdDias = 30 - dataInicialQ.iDia + dataFinalQ.iDia; //calculo da diferença de dias
         }
         else if(bissexto == 0 && dataInicialQ.iMes == 2){
-            dma.qtdDias = 28 - dataInicialQ.iDia; //calculo da diferença de dias
+            dma.qtdDias = 28 - dataInicialQ.iDia + dataFinalQ.iDia; //calculo da diferença de dias
         }
         else if(bissexto == 1 && dataInicialQ.iMes == 2){
-            dma.qtdDias = 29 - dataInicialQ.iDia; //calculo da diferença de dias
+            dma.qtdDias = 29 - dataInicialQ.iDia + dataFinalQ.iDia; //calculo da diferença de dias
         }
 	}
 	      
