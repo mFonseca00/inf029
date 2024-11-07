@@ -187,7 +187,37 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 int q3(char *texto, char c, int isCaseSensitive)
 {
     int qtdOcorrencias = -1;
+    if(isCaseSensitive!=1){     //não considerar diferenças entre maiúsculo e minúsculo
 
+        if(c>64 && c<91){       //transforma o caractere para minúsculo, caso seja letra
+            c = c + 32;
+        }
+        for(int i=0;i<=strlen(texto);i++){      //transforma todas as letras do texto para minúsculo
+            if(texto[i]>64 && texto[i]<91 ){
+                texto[i]=texto[i]+32;
+            }
+        }
+        //verificação dos caracteres (função)
+        for(int i=0; i<=strlen(texto);i++){
+            if(c==texto[i]){
+                qtdOcorrencias++;
+            }
+        }
+        if(qtdOcorrencias!=-1){
+            qtdOcorrencias++;
+        }
+    }
+    else{
+        // verificação dos caracteres (função)
+        for(int i=0; i<=strlen(texto);i++){
+            if(c==texto[i]){
+                qtdOcorrencias++;
+            }
+        }
+        if(qtdOcorrencias!=-1){
+            qtdOcorrencias++;
+        }
+    }
     return qtdOcorrencias;
 }
 
