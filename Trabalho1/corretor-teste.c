@@ -219,7 +219,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 
 	//contabilizar Dias
 
-	if(dataFinalQ.iAno == dataInicialQ.iAno && dataFinalQ.iAno == dataInicialQ.iAno){ //caso a diferença de dias seja no mesmo mês
+	if(dataFinalQ.iAno == dataInicialQ.iAno && dataFinalQ.iMes == dataInicialQ.iMes){ //caso a diferença de dias seja no mesmo mês
 		dma.qtdDias = dataFinalQ.iDia - dataInicialQ.iDia; //calculo da diferença de dias
 	}
 
