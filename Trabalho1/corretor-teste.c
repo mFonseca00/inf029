@@ -139,8 +139,22 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
             if(bissextoFinal==1 && dataFinalQ.iMes>2 && dma.qtdDias !=0){//reduz em 1 a quantidade de dias caso o ano Final seja bissexto e a data Final seja após do fim de fevereiro
                 dma.qtdDias--;
             }
+            if(dma.qtdDias<0){//caso a diferença seja negativa (dia final < dia inicial), retira o sinal negativo
+                dma.qtdDias= (-1)*dma.qtdDias;
+            }
 
-            
+            //Diferença de meses - Validado
+
+            dma.qtdMeses = dataFinalQ.iMes - dataInicialQ.iMes; // contabiliza o número de meses
+            if(dataInicialQ.iAno>dataFinalQ.iAno && dma.qtdMeses==1){//exclui casos onde o mês é diferente entre as datas, mas não se completou um ês de diferença
+                dma.qtdMeses = 0;
+            }
+
+            if(dma.qtdMeses<0){//caso a diferença seja negativa (mês final < mês inicial), retira o sinal negativo
+                dma.qtdMeses= (-1)*dma.qtdMeses;
+            }
+
+            //Diferença de anos - 
 
 
             // if(??? && dataFinalQ != dataInicialQ){//contabiliza os anos
