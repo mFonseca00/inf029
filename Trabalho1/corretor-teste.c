@@ -146,7 +146,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
             //Diferença de meses - Validado
 
             dma.qtdMeses = dataFinalQ.iMes - dataInicialQ.iMes; // contabiliza o número de meses
-            if(dataInicialQ.iAno>dataFinalQ.iAno && dma.qtdMeses==1){//exclui casos onde o mês é diferente entre as datas, mas não se completou um ês de diferença
+            if(dataInicialQ.iDia>dataFinalQ.iDia && dma.qtdMeses==1){//exclui casos onde o mês é diferente entre as datas, mas não se completou um mês de diferença
                 dma.qtdMeses = 0;
             }
 
@@ -154,14 +154,17 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
                 dma.qtdMeses= (-1)*dma.qtdMeses;
             }
 
-            //Diferença de anos - 
+            //Diferença de anos - Validado
 
+            dma.qtdAnos = dataFinalQ.iAno - dataInicialQ.iAno; // contabilizando o número de anos
+            if(dataInicialQ.iAno>dataFinalQ.iAno && dma.qtdAnos==1){//exclui casos onde o ano é diferente entre as datas, mas não se completou um ano de diferença
+                dma.qtdAnos = 0;
+            }
 
-            // if(??? && dataFinalQ != dataInicialQ){//contabiliza os anos
-            //     dma.qtdAnos = dataFinalQ.iAno - dataInicialQ.iAno;
-            // }
+            if(dma.qtdAnos<0){//caso a diferença seja negativa (ano final < ano inicial), retira o sinal negativo
+                dma.qtdAnos = 0;
+            }
 
-            
             dma.retorno = 1;
             return dma;
         }
