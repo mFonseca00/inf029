@@ -122,10 +122,31 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
             return dma;
         }
         else{//calculando a distancia entre as datas
-            int bissextoInicial = 0;
+            int bissextoInicial = 0, bissextoFinal = 0;
             if(dataInicialQ.iAno %400 == 0||(dataInicialQ.iAno %4 == 0 && dataInicialQ.iAno %100 !=0)){ //testa se o ano inicial é bissexto
                 bissextoInicial = 1;
             }
+            if(dataFinalQ.iAno %400 == 0||(dataFinalQ.iAno %4 == 0 && dataFinalQ.iAno %100 !=0)){ //testa se o ano inicial é bissexto
+                bissextoFinal = 1;
+            }
+
+            //Diferença de dias - Validado
+
+            dma.qtdDias = dataFinalQ.iDia - dataInicialQ.iDia; // contabiliza o número de dias
+            if(bissextoInicial==1 && dataInicialQ.iMes<=2 && dataInicialQ.iDia<29 && bissextoFinal == 0 && dataFinalQ.iMes>2){//aumenta em 1 a quantidade de dias caso o ano inicial seja bissexto e a data inicial seja antes do fim de fevereiro
+                dma.qtdDias++;
+            }
+            if(bissextoFinal==1 && dataFinalQ.iMes>2 && dma.qtdDias !=0){//reduz em 1 a quantidade de dias caso o ano Final seja bissexto e a data Final seja após do fim de fevereiro
+                dma.qtdDias--;
+            }
+
+            
+
+
+            // if(??? && dataFinalQ != dataInicialQ){//contabiliza os anos
+            //     dma.qtdAnos = dataFinalQ.iAno - dataInicialQ.iAno;
+            // }
+
             
             dma.retorno = 1;
             return dma;
