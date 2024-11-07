@@ -185,7 +185,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
 
 	//contabilizar meses
 	dma.qtdMeses = (12 - dataInicialQ.iMes) + dataFinalQ.iMes;
-	if(dataInicialQ.iMes == dataFinalQ.iMes && dataInicialQ.iAno == dataInicialQ.iAno){//caso a diferênca seja só em dias de um mesmo mês
+	if(dataInicialQ.iMes == dataFinalQ.iMes && dataInicialQ.iAno == dataFinalQ.iAno){//caso a diferênca seja só em dias de um mesmo mês
 	    dma.qtdMeses = 0;
 	}
 	//contabilizar anos e atualizar meses
