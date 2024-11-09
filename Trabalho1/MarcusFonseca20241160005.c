@@ -188,7 +188,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
                 bissextoFinal = 1;
             }
 
-            //Diferença de dias - Validado
+            //Diferença de dias - 
 
             dma.qtdDias = dataFinalQ.iDia - dataInicialQ.iDia; // contabiliza o número de dias
             if(bissextoInicial==1 && dataInicialQ.iMes<=2 && dataInicialQ.iDia<29 && bissextoFinal == 0 && dataFinalQ.iMes>2){//aumenta em 1 a quantidade de dias caso o ano inicial seja bissexto e a data inicial seja antes do fim de fevereiro
