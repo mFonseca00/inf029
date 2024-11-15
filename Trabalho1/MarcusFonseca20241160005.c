@@ -364,7 +364,29 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
+
+    // printf("Número base: %d\n", numerobase);
+    // printf("Número de busca: %d\n", numerobusca);
+    
     int qtdOcorrencias = 0;
+    int mult10 = 1; //multiplos de dez (potência de 10 equivalente ao numero de dígitos do númerobusca)
+    int tempBusca = numerobusca; //variável temporária para armazenar o número de busca e verificar o número de dígitos
+
+    while(tempBusca>0){
+        mult10 *= 10;
+        tempBusca /= 10;
+    }
+
+    // printf("%d\n", mult10);
+
+    while(numerobase > 0){
+        if(numerobase % mult10 == numerobusca){ //verifica se o número de busca está contido no número base
+            numerobase -= numerobusca; //remove o número de busca do número base, para que o primeiro dígito não seja verificado novamente
+            qtdOcorrencias++;
+        }
+        numerobase /= 10; //remoção do ultimo dígito
+    }
+    // printf("Quantidade de vezes que número de busca ocorre em número base: %d\n", qtdOcorrencias);    
     return qtdOcorrencias;
 }
 
