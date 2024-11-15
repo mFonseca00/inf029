@@ -61,7 +61,25 @@ int diasNoMes(int mes, int ano){
     }
 }
 
+// // Função para remover os acentos dos caracteres
+// void removerAcentos(char *str) {
+//     // Lista de caracteres acentuados, incluindo as versões maiúsculas
+//     char acentuados[] = "áéíóúãõâêîôûàèìòùäëïöüçÁÉÍÓÚÃÕÂÊÎÔÛÀÈÌÒÙÄËÏÖÜÇ";
+//     // Lista de caracteres sem acento correspondentes, incluindo as versões maiúsculas
+//     char semAcento[] = "aeiouaoaeiouaeioucAEIOUAOAEIOUAEOUAEIOUC";
 
+//     // Percorre cada caractere da string
+//     for (int i = 0; str[i] != '\0'; i++) {
+//         // Compara o caractere com os acentuados
+//         for (int j = 0; acentuados[j] != '\0'; j++) {
+//             if (str[i] == acentuados[j]) {
+//                 // Substitui o caractere acentuado pelo correspondente sem acento
+//                 str[i] = semAcento[j];
+//                 break; // Sai do loop após a substituição
+//             }
+//         }
+//     }
+// }
 
 /*
 ## função utilizada para testes  ##
@@ -238,10 +256,10 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
             {
                 dma.qtdDias++;
             }
-            if(Inicial.iAno != Final.iAno && verificarBissexto(Final.iAno) &&
-                (Final.iMes > 2 || (Final.iMes == 2 && Final.iDia == 29))){
-                dma.qtdDias++;
-            }
+            // if(Inicial.iAno != Final.iAno && verificarBissexto(Final.iAno) &&
+            //     (Final.iMes > 2 || (Final.iMes == 2 && Final.iDia == 29))){
+            //     dma.qtdDias++;
+            // }
 
              // printf("Data inicial: %d/%d/%d\n", Inicial.iDia, Inicial.iMes, Inicial.iAno);
              // printf("Data final: %d/%d/%d\n", Final.iDia, Final.iMes, Final.iAno);
@@ -327,30 +345,51 @@ int q3(char *texto, char c, int isCaseSensitive)
         O retorno da função, n, nesse caso seria 1;
 
  */
-int q4(char *strTexto, char *strBusca, int posicoes[30])
-{
-    int qtdOcorrencias = 0; // Contador de ocorrências
-    int posicao = 0; // Índice para o vetor de posições
+int q4(char *strTexto, char *strBusca, int *posicoes) {
+    int qtdOcorrencias = 0;  // Contador de ocorrências
+    int posicao = 0;         // Índice para o vetor de posições
+    
+    // printf("Texto base: %s\n", strTexto);
+    // printf("Palavra de busca: %s\n", strBusca);
+    
+    // removerAcentos(strTexto);
+    // removerAcentos(strBusca);
+
+    // printf("Texto base: %s\n", strTexto);
+    // printf("Palavra de busca: %s\n", strBusca);
+    
     int tamTexto = strlen(strTexto);
     int tamBusca = strlen(strBusca);
 
-    for (int i = 0; i < tamTexto; i++) {
-        int j = 0; // Armazena o número de caracteres iguais entre as strings
-        
-        // Verifica se há correspondência da palavra
-        while (j < tamBusca && strTexto[i + j] == strBusca[j]) {
+
+
+    for (int i = 0; i <= tamTexto - tamBusca; i++) { // Evita ultrapassar o fim do texto
+        int j = 0;
+
+        // Verifica correspondência
+        while (j < tamBusca && (i + j) < tamTexto && strTexto[i + j] == strBusca[j]) {
             j++;
         }
 
-        // Verifica se todas as letras da palavra foram encontradas
+        // Se encontrou a palavra
         if (j == tamBusca) {
-            posicoes[posicao] = i + 1;         // Índice de início (1 baseado)
-            posicoes[posicao + 1] = i + j;    // Índice de fim (1 baseado)
-            posicao += 2;                     // Atualiza o índice do vetor de posições
-            qtdOcorrencias++;                 // Incrementa o número de ocorrências
-            i += j - 1;                       // Avança 'i' para o próximo caractere após a palavra encontrada
+            // Debug: imprime onde encontrou
+            // printf("Encontrado: %d - %d\n", i + 1, i + j);
 
+            if (posicao + 1 < 30) { // Verifica se há espaço no vetor
+                posicoes[posicao] = i + 1;     // Início (base 1)
+                posicoes[posicao + 1] = i + j; // Fim (base 1)
+                posicao += 2;
+            }
+
+            qtdOcorrencias++;
+            i += j - 1;  // Avança para o próximo índice após a palavra encontrada
         }
+    }
+
+    // Debug: imprime o vetor posicoes
+    for (int k = 0; k < 30; k++) {
+        // printf("posicoes[%d] = %d\n", k, posicoes[k]);
     }
 
     return qtdOcorrencias;
