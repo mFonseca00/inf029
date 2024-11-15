@@ -20,8 +20,8 @@
 // Última atualização: 07/05/2021
 
 // #################################################
-#ifndef TRABALHO1_MarcusFonseca20241160005_H
-#define TRABALHO1_MarcusFonseca20241160005_H
+#ifndef TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H
+#define TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H
 
 typedef struct DQ
 {
@@ -51,4 +51,4 @@ int q5(int num);
 int q6(int numerobase, int numerobusca);
 DataQuebrada quebraData(char data[]);
 
-#endif  // TRABALHO1_MarcusFonseca20241160005_H
+#endif  // TRABALHO1_PRIMEIROULTIMONOMEMATRICULA_H
