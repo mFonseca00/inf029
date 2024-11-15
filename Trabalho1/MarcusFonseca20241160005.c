@@ -27,8 +27,17 @@
 #include <string.h>
 
 DataQuebrada quebraData(char data[]);
-int VerificaBissexto(int ano);
-
+int VerificaBissexto(int ano){
+    if(ano<100){//testa se o ano tem dois dígitos
+        ano = ano+2000;
+    }
+    if((ano%4==0 && ano%100!=0) || ano%400){
+        return 1;   //retorna 1 se o ano é bissexto
+    }
+    else{
+        return 0;   //retorna 0 se o ano não é bissexto
+    }
+}
 
 /*
 ## função utilizada para testes  ##
@@ -310,14 +319,4 @@ DataQuebrada quebraData(char data[]){
   return dq;
 }
 // função utilizada para verificar se ano informado é bissexto
-VerificaBissexto(int ano){
-    if(ano<100){//testa se o ano tem dois dígitos
-        ano = ano+2000;
-    }
-    if((ano%4==0 && ano%100!=0) || ano%400){
-        return 1;   //retorna 1 se o ano é bissexto
-    }
-    else{
-        return 0;   //retorna 0 se o ano não é bissexto
-    }
-}
+
