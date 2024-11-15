@@ -106,7 +106,6 @@ int q1(char data[])
 
             int bissexto = VerificaBissexto(dataq.iAno);    //verifica se o ano é bissexto
             
-            
             if((dataq.iMes == 1 || dataq.iMes == 3 || dataq.iMes == 5 || dataq.iMes == 7 || dataq.iMes == 8 || dataq.iMes == 10 || dataq.iMes == 12) && dataq.iDia >= 1 && dataq .iDia <= 31){
                 datavalida = 1;
             }
