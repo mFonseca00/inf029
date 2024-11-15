@@ -27,6 +27,8 @@
 #include <string.h>
 
 DataQuebrada quebraData(char data[]);
+int VerificaBissexto(int ano);
+
 
 /*
 ## função utilizada para testes  ##
@@ -102,19 +104,8 @@ int q1(char data[])
         dataq = quebraData(data); //chamada da função quebraData que veio pronta no código para quebrar data em dia, mês e ano
         if(dataq.valido == 1 && dataq.iMes >= 1 && dataq.iMes <= 12){ //testa se a data é valida após função de quebrar data
 
-            if(dataq.iAno<100){//testa se o ano tem dois dígitos
-                dataq.iAno = dataq.iAno+2000;
-            }
+            int bissexto = VerificaBissexto(dataq.iAno);    //verifica se o ano é bissexto
             
-            //separa os dois ultimos dígitos do ano
-            int d1A = dataq.iAno % 10;
-            int d2A = (dataq.iAno % 100) / 10;
-
-            int bissexto = 0;//armazena se o ano é bissexto (1 para sim e 0 para não)
-            if((d1A == 0 && d2A == 0 && dataq.iAno %400 == 0)||((d1A != 0 || d2A != 0) && dataq.iAno %4 == 0)){ //testa se o ano é bissexto
-		
-                bissexto = 1;
-            }
             
             if((dataq.iMes == 1 || dataq.iMes == 3 || dataq.iMes == 5 || dataq.iMes == 7 || dataq.iMes == 8 || dataq.iMes == 10 || dataq.iMes == 12) && dataq.iDia >= 1 && dataq .iDia <= 31){
                 datavalida = 1;
@@ -180,50 +171,7 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
             return dma;
         }
         else{//calculando a distancia entre as datas
-            int bissextoInicial = 0, bissextoFinal = 0;
-            if(dataInicialQ.iAno %400 == 0||(dataInicialQ.iAno %4 == 0 && dataInicialQ.iAno %100 !=0)){ //testa se o ano inicial é bissexto
-                bissextoInicial = 1;
-            }
-            if(dataFinalQ.iAno %400 == 0||(dataFinalQ.iAno %4 == 0 && dataFinalQ.iAno %100 !=0)){ //testa se o ano inicial é bissexto
-                bissextoFinal = 1;
-            }
-
-            //Diferença de dias - 
-
-            dma.qtdDias = dataFinalQ.iDia - dataInicialQ.iDia; // contabiliza o número de dias
-            if(bissextoInicial==1 && dataInicialQ.iMes<=2 && dataInicialQ.iDia<29 && bissextoFinal == 0 && dataFinalQ.iMes>2){//aumenta em 1 a quantidade de dias caso o ano inicial seja bissexto e a data inicial seja antes do fim de fevereiro
-                dma.qtdDias++;
-            }
-            if(bissextoFinal==1 && dataFinalQ.iMes>2 && dma.qtdDias !=0){//reduz em 1 a quantidade de dias caso o ano Final seja bissexto e a data Final seja após do fim de fevereiro
-                dma.qtdDias--;
-            }
-            if(dma.qtdDias<0){//caso a diferença seja negativa (dia final < dia inicial), retira o sinal negativo
-                dma.qtdDias= (-1)*dma.qtdDias;
-            }
-
-            //Diferença de meses - Validado
-
-            dma.qtdMeses = dataFinalQ.iMes - dataInicialQ.iMes; // contabiliza o número de meses
-            if(dataInicialQ.iDia>dataFinalQ.iDia && dma.qtdMeses==1){//exclui casos onde o mês é diferente entre as datas, mas não se completou um mês de diferença
-                dma.qtdMeses = 0;
-            }
-
-            if(dma.qtdMeses<0){//caso a diferença seja negativa (mês final < mês inicial), retira o sinal negativo
-                dma.qtdMeses= (-1)*dma.qtdMeses;
-            }
-
-            //Diferença de anos - Validado
-
-            dma.qtdAnos = dataFinalQ.iAno - dataInicialQ.iAno; // contabilizando o número de anos
-            if(dataInicialQ.iAno>dataFinalQ.iAno && dma.qtdAnos==1){//exclui casos onde o ano é diferente entre as datas, mas não se completou um ano de diferença
-                dma.qtdAnos = 0;
-            }
-
-            if(dma.qtdAnos<0){//caso a diferença seja negativa (ano final < ano inicial), retira o sinal negativo
-                dma.qtdAnos = 0;
-            }
-
-            dma.retorno = 1;
+            
             return dma;
         }
 
@@ -361,4 +309,16 @@ DataQuebrada quebraData(char data[]){
 	dq.valido = 1;
     
   return dq;
+}
+// função utilizada para verificar se ano informado é bissexto
+VerificaBissexto(int ano){
+    if(ano<100){//testa se o ano tem dois dígitos
+        ano = ano+2000;
+    }
+    if((ano%4==0 && ano%100!=0) || ano%400){
+        return 1;   //retorna 1 se o ano é bissexto
+    }
+    else{
+        return 0;   //retorna 0 se o ano não é bissexto
+    }
 }
