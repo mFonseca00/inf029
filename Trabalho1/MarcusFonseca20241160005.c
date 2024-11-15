@@ -340,8 +340,16 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
+    int inverso = 0;
+    // printf("Número original: %d\n", num);
 
-    return num;
+    for(int i=0; num>0; i++){
+        inverso = inverso*10 + num%10;
+        num = num/10;
+    }
+
+    // printf("Número invertido: %d\n", inverso);
+    return inverso;
 }
 
 /*
