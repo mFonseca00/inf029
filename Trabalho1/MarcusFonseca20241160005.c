@@ -42,6 +42,7 @@ int verificarBissexto(int ano){ // função utilizada para verificar se ano info
     }
 }
 
+// Função para contabilizar o número de dias em um mês considerando anos bissextos
 int diasNoMes(int mes, int ano){
     if(mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12){
         return 31;
@@ -55,7 +56,12 @@ int diasNoMes(int mes, int ano){
     else if(mes == 2 && verificarBissexto(ano)==0){
         return 28;
     }
+    else{
+        return 0;
+    }
 }
+
+
 
 /*
 ## função utilizada para testes  ##
@@ -315,15 +321,37 @@ int q3(char *texto, char c, int isCaseSensitive)
  @saida
     Um número n >= 0 correspondente a quantidade de ocorrências encontradas.
     O vetor posicoes deve ser preenchido com cada entrada e saída correspondente. Por exemplo, se tiver uma única ocorrência, a posição 0 do vetor deve ser preenchido com o índice de início do texto, e na posição 1, deve ser preenchido com o índice de fim da ocorrencias. Se tiver duas ocorrências, a segunda ocorrência será amazenado nas posições 2 e 3, e assim consecutivamente. Suponha a string "Instituto Federal da Bahia", e palavra de busca "dera". Como há uma ocorrência da palavra de busca no texto, deve-se armazenar no vetor, da seguinte forma:
-        posicoes[0] = 13;
-        posicoes[1] = 16;
+        posicoes[0] = 13; - posição da primeira letra
+        posicoes[1] = 16; - posição da ultima letra
         Observe que o índice da posição no texto deve começar ser contado a partir de 1.
         O retorno da função, n, nesse caso seria 1;
 
  */
 int q4(char *strTexto, char *strBusca, int posicoes[30])
 {
-    int qtdOcorrencias = -1;
+    int qtdOcorrencias = 0; // Contador de ocorrências
+    int posicao = 0; // Índice para o vetor de posições
+    int tamTexto = strlen(strTexto);
+    int tamBusca = strlen(strBusca);
+
+    for (int i = 0; i < tamTexto; i++) {
+        int j = 0; // Armazena o número de caracteres iguais entre as strings
+        
+        // Verifica se há correspondência da palavra
+        while (j < tamBusca && strTexto[i + j] == strBusca[j]) {
+            j++;
+        }
+
+        // Verifica se todas as letras da palavra foram encontradas
+        if (j == tamBusca) {
+            posicoes[posicao] = i + 1;         // Índice de início (1 baseado)
+            posicoes[posicao + 1] = i + j;    // Índice de fim (1 baseado)
+            posicao += 2;                     // Atualiza o índice do vetor de posições
+            qtdOcorrencias++;                 // Incrementa o número de ocorrências
+            i += j - 1;                       // Avança 'i' para o próximo caractere após a palavra encontrada
+
+        }
+    }
 
     return qtdOcorrencias;
 }
@@ -345,7 +373,7 @@ int q5(int num)
 
     for(int i=0; num>0; i++){
         inverso = inverso*10 + num%10;
-        num = num/10;
+        num /= 10;
     }
 
     // printf("Número invertido: %d\n", inverso);
