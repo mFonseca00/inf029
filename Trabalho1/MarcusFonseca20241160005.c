@@ -365,7 +365,7 @@ int q4(char *strTexto, char *strBusca, int *posicoes) {
 
     // Debug: imprime o vetor posicoes
     for (int k = 0; k < 30; k++) {
-        printf("posicoes[%d] = %d\n", k, posicoes[k]);
+        printf("posicoes[%d] = %d - letra: %c\n", k, posicoes[k], strTexto[posicoes[k]]);
     }
 
     return qtdOcorrencias;
