@@ -12,9 +12,9 @@ typedef struct {
     char caractereTrocado;
 }vetorChar;
 
-void insereCaractere(vetorChar caracteres){
+void inserirCaractere(vetorChar caracteres){
     if(caracteres.posAtual < maxTam){
-        printf("Insira o caractere a ser adicionado no vetor: ");
+        printf("Digite o caractere a ser adicionado no vetor: ");
         scanf("%c", &caracteres.vetor[caracteres.posAtual]);
         caracteres.posAtual++;
         strcpy(caracteres.retorno,"Caractere inserido\n");
@@ -24,7 +24,7 @@ void insereCaractere(vetorChar caracteres){
     }
 }
 
-int trocaCaractere(vetorChar caracteres){
+int trocarCaractere(vetorChar caracteres){
     char novo;
     printf("Informe o novo caractere, para realizar a troca: ");
     scanf("%c",&novo);
@@ -47,9 +47,9 @@ void removerCaractere(vetorChar caracteres){
 
 void listarCaracteres(vetorChar caracteres){
     printf("Lista de caracteres: ");
-    for(int i=0; i < strlen(caracteres.vetor); i++){
+    for(int i=0; i < maxTam; i++){
         printf("%c",caracteres.vetor[i]);
-        if(i<strlen(caracteres.vetor)-1){
+        if(i<maxTam-1){
             printf(", ");
         }
     }
@@ -72,7 +72,7 @@ void listarDistintos(vetorChar caracteres){
         //Caso não esteja listado, contabilizar repetições no vetor base e adicionar como distinto
         if(naoListado){
             contagem=0;
-            for(int j=0; j < strlen(caracteres.vetor); j++){
+            for(int j=0; j < maxTam; j++){
                 if(caracteres.vetor[j]==caracteres.vetor[i]){
                     contagem++;
                 }
@@ -86,9 +86,9 @@ void listarDistintos(vetorChar caracteres){
     
     //Listagem do vetor contentdo todos os caracteres distintos
     printf("Lista de caracteres distintos: ");
-    for(int i=0; i<strlen(Distintos.vetor); i++){
+    for(int i=0; i<Distintos.posAtual-1; i++){
         printf("%c: %d",Distintos.vetor[i],Distintos.repeticoes[i]);
-        if(i<strlen(Distintos.vetor-1)){
+        if(i<Distintos.posAtual-1){
             printf(", ");
         }
     }
@@ -99,11 +99,11 @@ int main(void){
 
     vetorChar caracteres;
     caracteres.posAtual=0;
-    caracteres.vetor[0]='\0';
+    caracteres.vetor[1]='\0';
     int opcao=0;
     
     printf("Digite a opcao desejada:\n'1' - inserir caractere\n'2' - trocar caractere\n'3' - remover caracteres\n"
-    "'4' - listar todos os caracteres\n'5' - listar caracteres distintos\n'6' - Sair");
+    "'4' - listar todos os caracteres\n'5' - listar caracteres distintos\n'6' - Sair\n");
     while(opcao!=6){
         scanf("%d",&opcao);
         switch (opcao){
@@ -114,10 +114,10 @@ int main(void){
             }
             case 2:{
                 int trocou = 0;
-                trocou=trocaCaractere(caracteres);
+                trocou=trocarCaractere(caracteres);
                 printf("%s",caracteres.retorno);
                 if(trocou == 1){
-                    printf("Caractere removido: ", caracteres.caractereTrocado);
+                    printf("Caractere removido: %c", caracteres.caractereTrocado);
                 }
                 break;
             }
