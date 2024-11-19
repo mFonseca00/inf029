@@ -64,7 +64,8 @@ void listarDistintos(vetorChar caracteres){
     for(int i=0; i < maxTam; i++){
         //Verificação se o caracter já se encontra listado como distinto
         bool naoListado=true;
-        for(int j=0; j<strlen(Distintos.vetor);j++){
+        int listados = strlen(Distintos.vetor);
+        for(int j=0; j<listados ;j++){
             if(caracteres.vetor[i]==Distintos.vetor[j]){
                 naoListado=false;
             }
