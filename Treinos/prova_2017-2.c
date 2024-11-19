@@ -41,7 +41,10 @@ int trocarCaractere(vetorChar caracteres){
 }
 
 void removerCaractere(vetorChar caracteres){
-    caracteres.posAtual--;
+    if(caracteres.posAtual!=0){
+        caracteres.vetor[caracteres.posAtual]='\0';
+        caracteres.posAtual--;
+    }
     strcpy(caracteres.retorno, "Caractere removido\n");
 }
 
