@@ -61,25 +61,6 @@ int diasNoMes(int mes, int ano){
     }
 }
 
-// // Função para remover os acentos dos caracteres
-// void removerAcentos(char *str) {
-//     // Lista de caracteres acentuados, incluindo as versões maiúsculas
-//     char acentuados[] = "áéíóúãõâêîôûàèìòùäëïöüçÁÉÍÓÚÃÕÂÊÎÔÛÀÈÌÒÙÄËÏÖÜÇ";
-//     // Lista de caracteres sem acento correspondentes, incluindo as versões maiúsculas
-//     char semAcento[] = "aeiouaoaeiouaeioucAEIOUAOAEIOUAEOUAEIOUC";
-
-//     // Percorre cada caractere da string
-//     for (int i = 0; str[i] != '\0'; i++) {
-//         // Compara o caractere com os acentuados
-//         for (int j = 0; acentuados[j] != '\0'; j++) {
-//             if (str[i] == acentuados[j]) {
-//                 // Substitui o caractere acentuado pelo correspondente sem acento
-//                 str[i] = semAcento[j];
-//                 break; // Sai do loop após a substituição
-//             }
-//         }
-//     }
-// }
 
 /*
 ## função utilizada para testes  ##
@@ -349,12 +330,7 @@ int q4(char *strTexto, char *strBusca, int *posicoes) {
     int qtdOcorrencias = 0;  // Contador de ocorrências
     int posicao = 0;         // Índice para o vetor de posições
     
-    // printf("Texto base: %s\n", strTexto);
-    // printf("Palavra de busca: %s\n", strBusca);
-    
-    // removerAcentos(strTexto);
-    // removerAcentos(strBusca);
-
+    // Debug:
     // printf("Texto base: %s\n", strTexto);
     // printf("Palavra de busca: %s\n", strBusca);
     
@@ -389,7 +365,7 @@ int q4(char *strTexto, char *strBusca, int *posicoes) {
 
     // Debug: imprime o vetor posicoes
     for (int k = 0; k < 30; k++) {
-        // printf("posicoes[%d] = %d\n", k, posicoes[k]);
+        printf("posicoes[%d] = %d\n", k, posicoes[k]);
     }
 
     return qtdOcorrencias;
