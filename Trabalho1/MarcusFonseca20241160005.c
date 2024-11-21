@@ -328,7 +328,6 @@ int q3(char *texto, char c, int isCaseSensitive)
  */
 int q4(char *strTexto, char *strBusca, int *posicoes) {
     int qtdOcorrencias = 0;  // Contador de ocorrências
-    int posicao = 0;         // Índice para o vetor de posições
     
     // Debug:
     // printf("Texto base: %s\n", strTexto);
@@ -337,36 +336,30 @@ int q4(char *strTexto, char *strBusca, int *posicoes) {
     int tamTexto = strlen(strTexto);
     int tamBusca = strlen(strBusca);
 
+    // Percorre o texto base
+    for (int i = 0; i <= tamTexto - tamBusca; i++) {
+        int encontrou = 1; // Assume que encontrou a palavra
 
-
-    for (int i = 0; i <= tamTexto - tamBusca; i++) { // Evita ultrapassar o fim do texto
-        int j = 0;
-
-        // Verifica correspondência
-        while (j < tamBusca && (i + j) < tamTexto && strTexto[i + j] == strBusca[j]) {
-            j++;
+        // Verifica correspondência da palavra
+        for (int j = 0; j < tamBusca; j++) {
+            if (strTexto[i + j] != strBusca[j]) {
+                encontrou = 0; // Quebra se a correspondência falhar
+                break;
+            }
         }
 
-        // Se encontrou a palavra
-        if (j == tamBusca) {
-            // Debug: imprime onde encontrou
-            // printf("Encontrado: %d - %d\n", i + 1, i + j);
+        // Se a palavra foi encontrada
+        if (encontrou) {
+            int posInicio = i + 1;           
+            int posFim = i + tamBusca;       
 
-            if (posicao + 1 < 30) { // Verifica se há espaço no vetor
-                posicoes[posicao] = i + 1;     // Início (base 1)
-                posicoes[posicao + 1] = i + j; // Fim (base 1)
-                posicao += 2;
-            }
+            posicoes[qtdOcorrencias * 2] = posInicio;
+            posicoes[qtdOcorrencias * 2 + 1] = posFim;
 
-            qtdOcorrencias++;
-            i += j - 1;  // Avança para o próximo índice após a palavra encontrada
+            qtdOcorrencias++; 
+            i += tamBusca - 1; 
         }
     }
-
-    // Debug: imprime o vetor posicoes
-    // for (int k = 0; k < 30; k++) {
-    //     printf("posicoes[%d] = %d - letra: %c\n", k, posicoes[k], strTexto[posicoes[k]]);
-    // }
 
     return qtdOcorrencias;
 }
