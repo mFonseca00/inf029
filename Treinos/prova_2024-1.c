@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
+#include <ctype.h>
+#include <string.h>
+#define maxString 100
 #define maxPessoas  3
 #define tamData 11
 
@@ -47,6 +50,29 @@ void inverterData(char dataOriginal[], char dataInvertida[]){
     dataInvertida[tamData] = '\0';
 }
 
+void organizaCaracteresEspeciais(char string[]){
+    int cont = 0, tam = maxString;
+    char stringTemp[tam];
+    // Salva os caracteres especiais na frente na string temporária
+    for (int i=0; i<tam; i++){
+        if(!(isalnum(string[i]))){
+            stringTemp[cont] = string[i];
+            cont++;
+        }
+    }
+    // Salva os caracteres alfanuméricos na string temporária
+    for (int i=0; i<tam; i++){
+        if(isalnum(string[i])){
+            stringTemp[cont] = string[i];
+            cont++;
+        }
+    }
+    //Adiciona caractere nulo ao final da string temporária
+    stringTemp[tam] = '\0';
+    // Copia a string temporária para a original
+    strcpy(string,stringTemp);
+}
+
 int main(void){
     
     setlocale(LC_ALL, "portuguese");
@@ -63,9 +89,6 @@ int main(void){
 
     // Q3
     
-
-
-
 
     return 0;
 }
