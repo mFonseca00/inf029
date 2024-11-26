@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #define maxPessoas  3
+#define tamData 11
 
 typedef struct pessoa{
     char nome[50];
@@ -38,11 +39,32 @@ void imprimirDados(pessoa pessoas[]){
     }
 }
 
+void inverterData(char dataOriginal[], char dataInvertida[]){
+    int len = tamData-1;
+    for(int i = 0; i < len; i++){
+        dataInvertida[(len-1)-i] = dataOriginal[i];
+    }
+    dataInvertida[tamData] = '\0';
+}
+
 int main(void){
+    
     setlocale(LC_ALL, "portuguese");
-    pessoa pessoas[maxPessoas];
-    lerDados(pessoas);
-    imprimirDados(pessoas);
+
+    // Q1
+    // pessoa pessoas[maxPessoas];
+    // lerDados(pessoas);
+    // imprimirDados(pessoas);
+
+    // Q2
+    // char dataOriginal[tamData], dataInvertida[tamData];
+    // inverterData(dataOriginal,dataInvertida);
+    // printf("Data Original: %s | Data Invertida: %s", dataOriginal, dataInvertida);
+
+    // Q3
+
+
+
 
     return 0;
 }
