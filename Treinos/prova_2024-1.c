@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#define maxPessoas = 3;
+#define maxPessoas  3
 
 typedef struct pessoa{
     char nome[50];
@@ -14,10 +14,11 @@ void lerDados(pessoa pessoas[]){
         fgets(pessoas[i].nome,50,stdin);
         printf("Digite a idade da %d pessoa: ", i+1);
         scanf("%d",&pessoas[i].idade);
+        getchar();// limpando buffer
     }
 }
 
-void impirmirDados(pessoa pessoas[]){
+void imprimirDados(pessoa pessoas[]){
     //ordenação de menor para maior idade (selection sort)
     for(int i=0; i<maxPessoas-1; i++){
         int menorIdx = i;
@@ -25,10 +26,10 @@ void impirmirDados(pessoa pessoas[]){
             if(pessoas[j].idade < pessoas[menorIdx].idade){
                 menorIdx = j;
             }
-            pessoa temp = pessoas[i];
-            pessoas[i] = pessoas[menorIdx];
-            pessoas[menorIdx] = temp;
         }
+        pessoa temp = pessoas[i];
+        pessoas[i] = pessoas[menorIdx];
+        pessoas[menorIdx] = temp;
     }
 
     //impressão das pessoas
@@ -40,8 +41,8 @@ void impirmirDados(pessoa pessoas[]){
 int main(void){
     setlocale(LC_ALL, "portuguese");
     pessoa pessoas[maxPessoas];
-    lerDados(pessoas[]);
-    impirmirDados(pessoas[]);
+    lerDados(pessoas);
+    imprimirDados(pessoas);
 
     return 0;
 }
