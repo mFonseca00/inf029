@@ -8,7 +8,7 @@ typedef struct pessoa{
     int idade;
 }pessoa;
 
-void lerDados(pessoa pessoas[maxPessoas]){
+void lerDados(pessoa pessoas[]){
     for(int i=0; i<maxPessoas; i++){
         printf("Digite o nome da %d pessoa: ", i+1);
         fgets(pessoas[i].nome,50,stdin);
@@ -17,4 +17,30 @@ void lerDados(pessoa pessoas[maxPessoas]){
     }
 }
 
-void impirmirDados(pessoa pessoas)
+void impirmirDados(pessoa pessoas[]){
+    //ordenação de menor para maior idade (selection sort)
+    for(int i=0; i<maxPessoas-1; i++){
+        int menorIdx = i;
+        for(int j = i+1; j<maxPessoas; j++){
+            if(pessoas[j].idade < pessoas[menorIdx].idade){
+                menorIdx = j;
+            }
+            pessoa temp = pessoas[i];
+            pessoas[i] = pessoas[menorIdx];
+            pessoas[menorIdx] = temp;
+        }
+    }
+
+    //impressão das pessoas
+    for(int i=0; i < maxPessoas; i++){
+        printf("Nome: %s | Idade: %d", pessoas[i].nome, pessoas[i].idade);
+    }
+}
+
+int main(void){
+    pessoa pessoas[maxPessoas];
+    lerDados(pessoas[]);
+    impirmirDados(pessoas[]);
+
+    return 0;
+}
