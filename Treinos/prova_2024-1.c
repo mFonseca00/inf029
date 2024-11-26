@@ -38,6 +38,7 @@ void impirmirDados(pessoa pessoas[]){
 }
 
 int main(void){
+    setlocale(LC_ALL, "portuguese");
     pessoa pessoas[maxPessoas];
     lerDados(pessoas[]);
     impirmirDados(pessoas[]);
