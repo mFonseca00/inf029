@@ -3,6 +3,7 @@
 #include <locale.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdbool.h>
 #define maxString 100
 #define maxPessoas  3
 #define tamData 11
@@ -50,27 +51,34 @@ void inverterData(char dataOriginal[], char dataInvertida[]){
     dataInvertida[tamData] = '\0';
 }
 
+bool ehEspecial(char c){
+    if(c <0 || !(isalnum(c))){
+        return true;
+    }
+    return false;
+}
+
 void organizaCaracteresEspeciais(char string[]){
-    int cont = 0, tam = maxString;
-    char stringTemp[tam];
-    // Salva os caracteres especiais na frente na string temporária
+    int tam = strlen(string);
+    int cont = 0;
+    char strTemp[tam+1];
+
     for (int i=0; i<tam; i++){
-        if(!(isalnum(string[i]))){
-            stringTemp[cont] = string[i];
+        if(ehEspecial(string[i])){
+            strTemp[cont] = string[i];
             cont++;
         }
     }
-    // Salva os caracteres alfanuméricos na string temporária
+
     for (int i=0; i<tam; i++){
-        if(isalnum(string[i])){
-            stringTemp[cont] = string[i];
+        if(!(ehEspecial(string[i]))){
+            strTemp[cont] = string[i];
             cont++;
         }
     }
-    //Adiciona caractere nulo ao final da string temporária
-    stringTemp[tam] = '\0';
-    // Copia a string temporária para a original
-    strcpy(string,stringTemp);
+    strTemp[cont]='\0';
+
+    strcpy(string,strTemp);
 }
 
 int main(void){
@@ -88,7 +96,12 @@ int main(void){
     // printf("Data Original: %s | Data Invertida: %s", dataOriginal, dataInvertida);
 
     // Q3
-    
+    // Apenas a função organizaCaracteresEspeciais
+    char minhaString[] = "*@sS17!aáç"; // Exemplo de string
+
+    printf("Antes: %s\n", minhaString);
+    organizaCaracteresEspeciais(minhaString);
+    printf("Depois: %s\n", minhaString);
 
     return 0;
 }
