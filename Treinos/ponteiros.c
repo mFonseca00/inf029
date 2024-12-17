@@ -76,6 +76,38 @@ int main(void) {
     // O mesmo vale para as operações a serem realizadas
 
     // Ponteiros e Arrays
+    int array[5]; // Um array é um ponteir que indica a primeira posição do conjunto de elementos
+    int *point = array; // o ponteiro aponta para a posição do array
+    for(int i=0; i<5; i++){
+        printf("%d\n",p[i]); // aponta para cada posição do array, apontado pelo ponteiro (acessa o valor da posição referente ao array)
+        printf("%d\n",*(p+i)); // também pode ser acessado desse modo (p é a posição inicial do array -  o * serve para desreferenciar o valor dentro do endereço apontado)
+        printf("&p[i] = %d\n", &p[i]); //indica o endereço
+        printf("&p[i] = %d\n", (p+i)); //indica o endereço
+    }
+
+    // Array de ponteiros
+    int  *vetorPoint[5]; //array de ponteiros (este exemplo é um array com 5 ponteiros para inteiros)
+    // ex de uso:
+    int *coords[2];
+    int x=10, y=[2] = (20,30);
+    coords[0]= &x;
+    coord[1]=y;
+
+    printf("coords[0]= %p\n", coords[0]); //&x
+    printf("coords[1]= %p\n", coords[1]); //&y[0]
+
+    printf("coords[0]= %p\n", *coords[0]); //x
+    printf("coords[1][1]= %p\n", coords[1][1]); //y[1]
+
+    //Ponteiro para ponteiro
+    int num=10;
+    int *pointer = &num;
+    int **pPointer = &pointer;
+
+    printf("pPointer = %d\n", pPointer); // &pointer
+    printf("*pPointer = %d\n", *pPointer); // &num
+    printf("**pPointer = %d\n", pPointer); // num (desreferencia duas vezes)
+
 
     return 0;
 }
