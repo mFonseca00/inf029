@@ -54,23 +54,27 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
     if(vetorPrincipal[posicao]->vet != NULL){
         return JA_TEM_ESTRUTURA_AUXILIAR;
     }
+
     // Verifica se a posição é válida (entre 1 e 10)
-    else if(posicao < 1 || posicao > 10){
+    if(posicao < 1 || posicao > 10){
         return POSICAO_INVALIDA;
     }
+
     // Verifica se o tamanho é válido (>= 1)
-    else if(tamanho < 1){
+    if(tamanho < 1){
         return TAMANHO_INVALIDO;
-    }
-    // verifica se o tamanho é muito grande (capacidade da memória)
-    else if(tamanho > ?){
+    } 
+
+    // Aloca o espaço de memória
+    vetorPrincipal[posicao]->vet = malloc(sizeof(int) * tamanho);
+
+    // Verifica se o tamanho é muito grande (capacidade da memória) - se não for possível alocar, o retorno de malloc será NULL
+    if(vetorPrincipal[posicao]->vet == NULL){
+        printf("Sem espaço de memória\n"); // DEBUG
         return SEM_ESPACO_DE_MEMORIA;
-    }    
-    // deu tudo certo, crie
-    else{
-        vetorPrincipal[posicao]->vet = malloc(sizeof(int) * tamanho);
-        return SUCESSO;
     }
+    
+    return SUCESSO;
 }
 
 /*
