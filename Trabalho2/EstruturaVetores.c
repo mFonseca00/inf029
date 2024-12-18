@@ -51,21 +51,27 @@ Rertono (int)
 */
 int criarEstruturaAuxiliar(int posicao, int tamanho)
 {
-
-    int retorno = 0;
- 
-    // a posicao pode já existir estrutura auxiliar
-    retorno = JA_TEM_ESTRUTURA_AUXILIAR;
-    // se posição é um valor válido {entre 1 e 10}
-    retorno = POSICAO_INVALIDA;
-    // o tamanho ser muito grande
-    retorno = SEM_ESPACO_DE_MEMORIA;
-    // o tamanho nao pode ser menor que 1
-    retorno = TAMANHO_INVALIDO;
+    // Verifica no vetor principal se a posição já está ocupada
+    if(vetorPrincipal[posicao]->vet != NULL){
+        return JA_TEM_ESTRUTURA_AUXILIAR;
+    }
+    // Verifica se a posição é válida (entre 1 e 10)
+    else if(posicao < 1 || posicao > 10){
+        return POSICAO_INVALIDA;
+    }
+    // Verifica se o tamanho é válido (>= 1)
+    else if(tamanho < 1){
+        return TAMANHO_INVALIDO;
+    }
+    // verifica se o tamanho é muito grande (capacidade da memória)
+    else if(tamanho > ?){
+        return SEM_ESPACO_DE_MEMORIA;
+    }    
     // deu tudo certo, crie
-    retorno = SUCESSO;
-
-    return retorno;
+    else{
+        vetorPrincipal[posicao]->vet = malloc(sizeof(int) * tamanho);
+        return SUCESSO;
+    }
 }
 
 /*
