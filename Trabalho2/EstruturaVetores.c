@@ -12,7 +12,7 @@ typedef struct estrutura{
     int tamanho;
 }estrutura;
 
-estrutura *vetorPrincipal[10]; //vetor de ponteiro que aponta para as estruturas auxiliares
+estrutura *vetorPrincipal[TAM]; //vetor de ponteiro que aponta para as estruturas auxiliares
 
 /*
 Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
@@ -41,7 +41,6 @@ void finalizar()
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
 com tamanho 'tamanho'
-
 Rertono (int)
     SUCESSO - criado com sucesso
     JA_TEM_ESTRUTURA_AUXILIAR - já tem estrutura na posição
