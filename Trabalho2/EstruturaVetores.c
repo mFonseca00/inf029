@@ -4,7 +4,39 @@
 
 #include "EstruturaVetores.h"
 
-int vetorPrincipal[TAM];
+
+//estrutura para armazenar cada estrutura auxiliar, a posição atual a ser escrita e seu tamanho total
+typedef struct estrutura{ 
+    int *vet;
+    int posAtual;
+    int tamanho;
+}estrutura;
+
+estrutura *vetorPrincipal[10]; //vetor de ponteiro que aponta para as estruturas auxiliares
+
+/*
+Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
+*/
+void inicializar()
+{
+    // vetorPrincipal = malloc(sizeof(estrutura) * TAM);
+
+    // Inicializa todos os ponteiros de estruturas auxiliares com estruturas vazias
+    for(int i = 0; i < TAM; i++){
+        vetorPrincipal[i]->vet = NULL;
+        vetorPrincipal[i]->posAtual = 0;
+        vetorPrincipal[i]->tamanho = 0;
+    }
+}
+
+/*
+Objetivo: finaliza o programa. deve ser chamado ao final do programa 
+para poder liberar todos os espaços de memória das estruturas auxiliares.
+*/
+void finalizar()
+{
+
+}
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -21,6 +53,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
 {
 
     int retorno = 0;
+ 
     // a posicao pode já existir estrutura auxiliar
     retorno = JA_TEM_ESTRUTURA_AUXILIAR;
     // se posição é um valor válido {entre 1 e 10}
@@ -245,6 +278,7 @@ Retorno void
 */
 void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
 {
+
 }
 
 /*
@@ -256,23 +290,6 @@ Retorno
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
 {
+
 }
 
-/*
-Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
-
-*/
-
-void inicializar()
-{
-}
-
-/*
-Objetivo: finaliza o programa. deve ser chamado ao final do programa 
-para poder liberar todos os espaços de memória das estruturas auxiliares.
-
-*/
-
-void finalizar()
-{
-}
