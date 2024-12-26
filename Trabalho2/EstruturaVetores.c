@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #define TAM 10
 
 #include "EstruturaVetores.h"
@@ -30,15 +31,6 @@ void inicializar()
 }
 
 /*
-Objetivo: finaliza o programa. deve ser chamado ao final do programa 
-para poder liberar todos os espaços de memória das estruturas auxiliares.
-*/
-void finalizar()
-{
-
-}
-
-/*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
 com tamanho 'tamanho'
 Rertono (int)
@@ -51,7 +43,7 @@ Rertono (int)
 int criarEstruturaAuxiliar(int posicao, int tamanho)
 {
     // Verifica no vetor principal se a posição já está ocupada
-    if(vetorPrincipal[posicao]->vet != NULL){
+    if(vetorPrincipal[posicao-1]->vet != NULL){
         return JA_TEM_ESTRUTURA_AUXILIAR;
     }
 
@@ -66,14 +58,17 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
     } 
 
     // Aloca o espaço de memória
-    vetorPrincipal[posicao]->vet = malloc(sizeof(int) * tamanho);
+    vetorPrincipal[posicao-1]->vet = malloc(sizeof(int) * tamanho);
 
     // Verifica se o tamanho é muito grande (capacidade da memória) - se não for possível alocar, o retorno de malloc será NULL
-    if(vetorPrincipal[posicao]->vet == NULL){
+    if(vetorPrincipal[posicao-1]->vet == NULL){
         printf("Sem espaço de memória\n"); // DEBUG
         return SEM_ESPACO_DE_MEMORIA;
     }
-    
+
+    vetorPrincipal[posicao-1]->posAtual = 0;
+    vetorPrincipal[posicao-1]->tamanho = tamanho;
+   
     return SUCESSO;
 }
 
@@ -88,35 +83,37 @@ CONSTANTES
 */
 int inserirNumeroEmEstrutura(int posicao, int valor)
 {
-    int retorno = 0;
-    int existeEstruturaAuxiliar = 0;
-    int temEspaco = 0;
-    int posicao_invalida = 0;
-
-    if (posicao_invalida)
-        retorno = POSICAO_INVALIDA;
+    if (posicao < 1 || posicao > 10){
+        printf("Posição inválida\n"); //Debug
+        return POSICAO_INVALIDA;
+    }
     else
     {
-        // testar se existe a estrutura auxiliar
-        if (existeEstruturaAuxiliar)
+        // testar se existe estrutura auxiliar na posição informada
+        if (vetorPrincipal[posicao - 1]->vet != NULL)
         {
-            if (temEspaco)
+            // testar se a estrutura auxiliar tem espaço para inserir
+            if(vetorPrincipal[posicao - 1]->posAtual == vetorPrincipal[posicao - 1]->tamanho)
             {
-                //insere
-                retorno = SUCESSO;
+                printf("Sem espaço disponível na posição %d da estrutura principal\n", posicao); //Debug
+                return SEM_ESPACO;
             }
-            else
+
+            else // caso haja espaco, insere o valor na posição atual da estrutura auxilixar
             {
-                retorno = SEM_ESPACO;
+                printf("inserindo %dna posição %d da estrutura principal...\n", valor, posicao); //Debug
+                vetorPrincipal[posicao - 1]->vet[vetorPrincipal[posicao - 1]->posAtual] = valor;
+                printf("Valor %d inserido com sucesso na posição %d da estrutura principal\n",*(vetorPrincipal[posicao - 1]->vet + vetorPrincipal[posicao - 1]->posAtual), posicao); //Debug
+                vetorPrincipal[posicao - 1]->posAtual++;
+                return SUCESSO;
             }
         }
         else
         {
-            retorno = SEM_ESTRUTURA_AUXILIAR;
+            printf("Não há estrutura auxiliar na posição %d\n", posicao); //Debug
+            return SEM_ESTRUTURA_AUXILIAR;
         }
     }
-
-    return retorno;
 }
 
 /*
@@ -302,3 +299,11 @@ void destruirListaEncadeadaComCabecote(No **inicio)
 
 }
 
+/*
+Objetivo: finaliza o programa. deve ser chamado ao final do programa 
+para poder liberar todos os espaços de memória das estruturas auxiliares.
+*/
+void finalizar()
+{
+
+}
