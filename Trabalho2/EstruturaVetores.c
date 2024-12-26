@@ -129,8 +129,25 @@ Rertono (int)
 */
 int excluirNumeroDoFinaldaEstrutura(int posicao)
 {
-    int retorno = SUCESSO;
-    return retorno;
+    if(posicao < 1 || posicao > 10){
+        // printf("Posicao invalida\n"); //Debug
+        return POSICAO_INVALIDA;
+    }
+
+    if(vetorPrincipal[posicao-1].vet == NULL){
+        // printf("Nao ha estrutura auxiliar na posicao %d\n", posicao); //Debug
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if(vetorPrincipal[posicao-1].posAtual == 0){
+        // printf("Estrutura auxiliar vazia\n"); //Debug
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }  
+
+    // printf("Excluindo %d...\n", vetorPrincipal[posicao-1].vet[vetorPrincipal[posicao-1].posAtual-1]);  //Debug
+    vetorPrincipal[posicao-1].posAtual--;
+
+    return SUCESSO;
 }
 
 /*
@@ -148,23 +165,61 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
-    int retorno = SUCESSO;
-    return retorno;
-}
+    // Mover o valor para o final da estrutura auxiliar
 
-// se posição é um valor válido {entre 1 e 10}
-int ehPosicaoValida(int posicao)
-{
-    int retorno = 0;
-    if (posicao < 1 || posicao > 10)
-    {
-        retorno = POSICAO_INVALIDA;
+    if(posicao < 1 || posicao > 10){
+        // printf("Posicao invalida\n"); //Debug
+        return POSICAO_INVALIDA;
     }
-    else
-        retorno = SUCESSO;
 
-    return retorno;
+    if(vetorPrincipal[posicao-1].vet == NULL){
+        // printf("Nao ha estrutura auxiliar na posicao %d\n", posicao); //Debug
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if(vetorPrincipal[posicao-1].posAtual == 0){    
+        // printf("Estrutura auxiliar vazia\n"); //Debug
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }
+
+    int busca = 0;
+    bool encontrou = false;
+
+    for(busca = 0; busca < vetorPrincipal[posicao-1].posAtual; busca++){
+        if(vetorPrincipal[posicao-1].vet[busca] == valor){ // Busca a primeira ocorrência do valor na estrutura auxiliar
+            vetorPrincipal[posicao-1].vet[vetorPrincipal[posicao-1].posAtual] = vetorPrincipal[posicao-1].vet[busca]; // Move o valor para o final da estrutura auxiliar
+            encontrou = true;
+            break; // Para a busca
+        }
+    }
+
+    if(!encontrou){
+        // printf("Valor nao encontrado\n"); //Debug
+        return NUMERO_INEXISTENTE;
+    }
+    else{
+        for(int i = busca; i < vetorPrincipal[posicao-1].posAtual; i++){
+        vetorPrincipal[posicao-1].vet[i] = vetorPrincipal[posicao-1].vet[i+1]; // Move os demais valores para a trás, rearranjando a estrutura auxiliar a partir da posição onde foi encontrado o valor
+        }
+        // Excluir ultimo valor
+        vetorPrincipal[posicao-1].posAtual--;
+        return SUCESSO;
+    }  
 }
+
+// // se posição é um valor válido {entre 1 e 10}
+// int ehPosicaoValida(int posicao)
+// {
+//     int retorno = 0;
+//     if (posicao < 1 || posicao > 10)
+//     {
+//         retorno = POSICAO_INVALIDA;
+//     }
+//     else
+//         retorno = SUCESSO;
+
+//     return retorno;
+// }
 /*
 Objetivo: retorna os números da estrutura auxiliar da posição 'posicao (1..10)'.
 os números devem ser armazenados em vetorAux

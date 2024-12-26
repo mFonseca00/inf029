@@ -18,21 +18,18 @@ void testeListaEncadeada();
 int main()
 {
     inicializar();
-    // printf("Inserindo sem estrutura\n"); //Debug
-    // testeInserirSemNada();
-    printf("Criando estruturas\n"); //Debug
+    testeInserirSemNada();
     testeCriarEstrutura();
-    printf("Inserindo com estrutura\n"); //Debug
     testeInserirComEstrutura();
-    // testeExcluir();
-    // testeExcluirNumeroEspecifico();
+    testeExcluir();
+    testeExcluirNumeroEspecifico();
     // testeListar();
     // testeRetornarTodosNumeros();
     // testeMudarTamanhoEstrutura();
     // testeListaEncadeada();
     // finalizar();
 }
-int ligado = 0;
+int ligado = 1;
 void show_log(char *str)
 {
     if (ligado)
