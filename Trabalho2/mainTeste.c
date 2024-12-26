@@ -23,8 +23,8 @@ int main()
     testeInserirComEstrutura();
     testeExcluir();
     testeExcluirNumeroEspecifico();
-    // testeListar();
-    // testeRetornarTodosNumeros();
+    testeListar();
+    testeRetornarTodosNumeros(); // até aqui ok
     // testeMudarTamanhoEstrutura();
     // testeListaEncadeada();
     // finalizar();

@@ -30,6 +30,47 @@ void inicializar()
     }
 }
 
+// Função para trocar dois elementos de posição em um vetor
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Função para particionar o vetor
+int partition(int arr[], int low, int high) {
+    // Escolhe o último elemento como pivô
+    int pivot = arr[high];
+    
+    // Índice do menor elemento
+    int i = (low - 1);
+
+    // Percorre o vetor, comparando cada elemento com o pivô
+    for (int j = low; j <= high - 1; j++) {
+        // Se o elemento atual for menor ou igual ao pivô
+        if (arr[j] <= pivot) {
+            i++; // Incrementa o índice do menor elemento
+            swap(&arr[i], &arr[j]); // Troca o elemento atual com o elemento do índice do menor
+        }
+    }
+    // Troca o pivô com o elemento do índice do menor
+    swap(&arr[i + 1], &arr[high]); 
+    return (i + 1); // Retorna o índice do pivô
+}
+
+// Função principal do Quicksort (recursiva)
+void quickSort(int arr[], int low, int high) {
+    // Verifica se o índice baixo é menor que o índice alto para evitar chamadas recursivas desnecessárias
+    if (low < high) {
+        // Encontra o índice do pivô, elementos menores que o pivô são movidos para a esquerda, e os maiores para a direita
+        int pi = partition(arr, low, high);
+
+        // Ordena recursivamente os elementos antes e depois do pivô
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
 com tamanho 'tamanho'
@@ -165,8 +206,6 @@ Rertono (int)
 */
 int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
 {
-    // Mover o valor para o final da estrutura auxiliar
-
     if(posicao < 1 || posicao > 10){
         // printf("Posicao invalida\n"); //Debug
         return POSICAO_INVALIDA;
@@ -181,6 +220,8 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
         // printf("Estrutura auxiliar vazia\n"); //Debug
         return ESTRUTURA_AUXILIAR_VAZIA;
     }
+
+    // Mover o valor para o final da estrutura auxiliar
 
     int busca = 0;
     bool encontrou = false;
@@ -201,25 +242,13 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
         for(int i = busca; i < vetorPrincipal[posicao-1].posAtual; i++){
         vetorPrincipal[posicao-1].vet[i] = vetorPrincipal[posicao-1].vet[i+1]; // Move os demais valores para a trás, rearranjando a estrutura auxiliar a partir da posição onde foi encontrado o valor
         }
-        // Excluir ultimo valor
+
+        // Excluir ultimo valor (valor buscado e movido para o final da estrutura auxiliar)
         vetorPrincipal[posicao-1].posAtual--;
         return SUCESSO;
     }  
 }
 
-// // se posição é um valor válido {entre 1 e 10}
-// int ehPosicaoValida(int posicao)
-// {
-//     int retorno = 0;
-//     if (posicao < 1 || posicao > 10)
-//     {
-//         retorno = POSICAO_INVALIDA;
-//     }
-//     else
-//         retorno = SUCESSO;
-
-//     return retorno;
-// }
 /*
 Objetivo: retorna os números da estrutura auxiliar da posição 'posicao (1..10)'.
 os números devem ser armazenados em vetorAux
@@ -231,10 +260,24 @@ Retorno (int)
 */
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+    if(posicao < 1 || posicao > 10){
+        // printf("Posicao invalida\n"); //Debug
+        return POSICAO_INVALIDA;
+    }
 
-    int retorno = 0;
-
-    return retorno;
+    if(vetorPrincipal[posicao-1].vet == NULL){
+        // printf("Nao ha estrutura auxiliar na posicao %d\n", posicao); //Debug
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+    
+    // printf("\nListando dados da estrutura auxiliar da posicao %d\n", posicao); //Debug
+    // Copia os dados da estrutura auxiliar para o vetorAux
+    for(int i = 0; i < vetorPrincipal[posicao-1].posAtual; i++){
+        vetorAux[i] = vetorPrincipal[posicao-1].vet[i];
+        // printf("%d\t", vetorAux[i]); //Debug
+    }
+    // printf("\n\n"); //Debug
+    return SUCESSO;
 }
 
 /*
@@ -248,11 +291,27 @@ Rertono (int)
 */
 int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
 {
+    if(posicao < 1 || posicao > 10){
+        // printf("Posicao invalida\n"); //Debug
+        return POSICAO_INVALIDA;
+    }
 
-    int retorno = 0;
+    if(vetorPrincipal[posicao-1].vet == NULL){
+        // printf("Nao ha estrutura auxiliar na posicao %d\n", posicao); //Debug
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
 
-    
-    return retorno;
+    // printf("\nListando dados da estrutura auxiliar da posicao %d em ordem crescente \n", posicao); //Debug
+    // Copia os dados da estrutura auxiliar para o vetorAux
+    for(int i = 0; i < vetorPrincipal[posicao-1].posAtual; i++){
+        vetorAux[i] = vetorPrincipal[posicao-1].vet[i];
+        // printf("%d\t", vetorAux[i]); //Debug
+    }
+
+    // Ordena o vetorAux
+    quickSort(vetorAux, 0, vetorPrincipal[posicao-1].posAtual-1);
+
+    return SUCESSO;
 }
 
 /*
@@ -265,9 +324,31 @@ Rertono (int)
 */
 int getDadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
-
-    int retorno = 0;
-    return retorno;
+    int contaVazias = 0; // contabiliza o número de estruturas auxiliares vazias
+    int elemento = 0; // contabiliza o número de elementos armazenados no vetorAux
+    
+    for(int i = 0; i < TAM; i++){ // Varre o vetor principal
+        if(vetorPrincipal[i].posAtual == 0){
+                contaVazias++;
+                // printf("Estrutura auxiliar %d vazia\n", i+1); // Debug
+                continue;
+            }
+        // printf("\nListando dados da estrutura auxiliar %d\n", i+1); // Debug
+        int j = 0;
+        for(j = 0; j < vetorPrincipal[i].posAtual; j++){// varre cada estrutura auxiliar
+            vetorAux[j + elemento] = vetorPrincipal[i].vet[j]; // Copia os dados da estrutura auxiliar para o vetorAux
+            // printf("%d\t", vetorAux[j + elemento]); // Debug
+        }
+        // printf("\n\n"); // Debug
+        elemento += j; // Incrementa o número de elementos armazenados no vetorAux para próxima inserção (próxima estrutura auxiliar)
+    }  
+    if(contaVazias == TAM){
+        // printf("Todas as estruturas auxiliares estao vazias\n"); // Debug
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;    
+    }
+    else{
+        return SUCESSO;
+    }
 }
 
 /*
@@ -280,9 +361,33 @@ Rertono (int)
 */
 int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
 {
-
-    int retorno = 0;
-    return retorno;
+    int contaVazias = 0; // contabiliza o número de estruturas auxiliares vazias
+    int elemento = 0; // contabiliza o número de elementos armazenados no vetorAux
+    
+    for(int i = 0; i < TAM; i++){ // Varre o vetor principal
+        if(vetorPrincipal[i].posAtual == 0){
+                contaVazias++;
+                // printf("Estrutura auxiliar %d vazia\n", i+1); // Debug
+                continue;
+            }
+        // printf("\nListando dados da estrutura auxiliar %d\n", i+1); // Debug
+        int j = 0;
+        for(j = 0; j < vetorPrincipal[i].posAtual; j++){// varre cada estrutura auxiliar
+            vetorAux[j + elemento] = vetorPrincipal[i].vet[j]; // Copia os dados da estrutura auxiliar para o vetorAux
+            // printf("%d\t", vetorAux[j + elemento]); // Debug
+        }
+        // printf("\n\n"); // Debug
+        elemento += j; // Incrementa o número de elementos armazenados no vetorAux para próxima inserção (próxima estrutura auxiliar)
+    }  
+    if(contaVazias == TAM){
+        // printf("Todas as estruturas auxiliares estao vazias\n"); // Debug
+        return TODAS_ESTRUTURAS_AUXILIARES_VAZIAS;    
+    }
+    else{
+        // printf("Ordenando dados das estruturas auxiliares\n"); // Debug
+        quickSort(vetorAux, 0, elemento - 1);
+        return SUCESSO;
+    }
 }
 
 /*
