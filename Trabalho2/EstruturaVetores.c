@@ -62,7 +62,7 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
 
     // Verifica se o tamanho é muito grande (capacidade da memória) - se não for possível alocar, o retorno de malloc será NULL
     if(vetorPrincipal[posicao-1].vet == NULL){
-        printf("Sem espaco de memoria\n"); // DEBUG
+        // printf("Sem espaco de memoria\n"); // DEBUG
         return SEM_ESPACO_DE_MEMORIA;
     }
 
@@ -84,7 +84,7 @@ CONSTANTES
 int inserirNumeroEmEstrutura(int posicao, int valor)
 {
     if (posicao < 1 || posicao > 10){
-        printf("Posição inválida\n"); //Debug
+        // printf("Posição inválida\n"); //Debug
         return POSICAO_INVALIDA;
     }
     else
@@ -95,22 +95,22 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
             // testar se a estrutura auxiliar tem espaço para inserir
             if(vetorPrincipal[posicao - 1].posAtual == vetorPrincipal[posicao - 1].tamanho)
             {
-                printf("Sem espaço disponivel na posicao %d da estrutura principal\n", posicao); //Debug
+                // printf("Sem espaco disponivel na posicao %d da estrutura principal\n", posicao); //Debug
                 return SEM_ESPACO;
             }
 
             else // caso haja espaco, insere o valor na posição atual da estrutura auxilixar
             {
-                printf("inserindo %d na posicao %d da estrutura principal...\n", valor, posicao); //Debug
+                // printf("inserindo %d na posicao %d da estrutura principal...\n", valor, posicao); //Debug
                 vetorPrincipal[posicao - 1].vet[vetorPrincipal[posicao - 1].posAtual] = valor;
-                printf("Valor %d inserido com sucesso na posicao %d da estrutura principal\n",*(vetorPrincipal[posicao - 1].vet + vetorPrincipal[posicao - 1].posAtual), posicao); //Debug
+                // printf("Valor %d inserido com sucesso na posicao %d da estrutura principal\n",*(vetorPrincipal[posicao - 1].vet + vetorPrincipal[posicao - 1].posAtual), posicao); //Debug
                 vetorPrincipal[posicao - 1].posAtual++;
                 return SUCESSO;
             }
         }
         else
         {
-            printf("Nao ha estrutura auxiliar na posicao %d\n", posicao); //Debug
+            // printf("Nao ha estrutura auxiliar na posicao %d\n", posicao); //Debug
             return SEM_ESTRUTURA_AUXILIAR;
         }
     }

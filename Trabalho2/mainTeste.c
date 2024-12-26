@@ -18,8 +18,11 @@ void testeListaEncadeada();
 int main()
 {
     inicializar();
+    // printf("Inserindo sem estrutura\n"); //Debug
     // testeInserirSemNada();
+    printf("Criando estruturas\n"); //Debug
     testeCriarEstrutura();
+    printf("Inserindo com estrutura\n"); //Debug
     testeInserirComEstrutura();
     // testeExcluir();
     // testeExcluirNumeroEspecifico();
