@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <locale.h>
 #define TAM 10
 
 #include "EstruturaVetores.h"
-
 
 //estrutura para armazenar cada estrutura auxiliar, a posição atual a ser escrita e seu tamanho total
 typedef struct estrutura{ 
@@ -13,20 +13,20 @@ typedef struct estrutura{
     int tamanho;
 }estrutura;
 
-estrutura *vetorPrincipal[TAM]; //vetor de ponteiro que aponta para as estruturas auxiliares
+estrutura *vetorPrincipal;//vetor de ponteiro que aponta para as estruturas auxiliares
 
 /*
 Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
 */
 void inicializar()
 {
-    // vetorPrincipal = malloc(sizeof(estrutura) * TAM);
+    vetorPrincipal = malloc(sizeof(estrutura) * TAM);
 
     // Inicializa todos os ponteiros de estruturas auxiliares com estruturas vazias
     for(int i = 0; i < TAM; i++){
-        vetorPrincipal[i]->vet = NULL;
-        vetorPrincipal[i]->posAtual = 0;
-        vetorPrincipal[i]->tamanho = 0;
+        vetorPrincipal[i].vet = NULL;
+        vetorPrincipal[i].posAtual = 0;
+        vetorPrincipal[i].tamanho = 0;
     }
 }
 
@@ -42,11 +42,6 @@ Rertono (int)
 */
 int criarEstruturaAuxiliar(int posicao, int tamanho)
 {
-    // Verifica no vetor principal se a posição já está ocupada
-    if(vetorPrincipal[posicao-1]->vet != NULL){
-        return JA_TEM_ESTRUTURA_AUXILIAR;
-    }
-
     // Verifica se a posição é válida (entre 1 e 10)
     if(posicao < 1 || posicao > 10){
         return POSICAO_INVALIDA;
@@ -55,19 +50,24 @@ int criarEstruturaAuxiliar(int posicao, int tamanho)
     // Verifica se o tamanho é válido (>= 1)
     if(tamanho < 1){
         return TAMANHO_INVALIDO;
-    } 
+    }
+    
+    // Verifica no vetor principal se a posição já está ocupada
+    if(vetorPrincipal[posicao-1].vet != NULL){
+        return JA_TEM_ESTRUTURA_AUXILIAR;
+    }
 
     // Aloca o espaço de memória
-    vetorPrincipal[posicao-1]->vet = malloc(sizeof(int) * tamanho);
+    vetorPrincipal[posicao-1].vet = malloc(sizeof(int) * tamanho);
 
     // Verifica se o tamanho é muito grande (capacidade da memória) - se não for possível alocar, o retorno de malloc será NULL
-    if(vetorPrincipal[posicao-1]->vet == NULL){
-        printf("Sem espaço de memória\n"); // DEBUG
+    if(vetorPrincipal[posicao-1].vet == NULL){
+        printf("Sem espaco de memoria\n"); // DEBUG
         return SEM_ESPACO_DE_MEMORIA;
     }
 
-    vetorPrincipal[posicao-1]->posAtual = 0;
-    vetorPrincipal[posicao-1]->tamanho = tamanho;
+    vetorPrincipal[posicao-1].posAtual = 0;
+    vetorPrincipal[posicao-1].tamanho = tamanho;
    
     return SUCESSO;
 }
@@ -90,27 +90,27 @@ int inserirNumeroEmEstrutura(int posicao, int valor)
     else
     {
         // testar se existe estrutura auxiliar na posição informada
-        if (vetorPrincipal[posicao - 1]->vet != NULL)
+        if (vetorPrincipal[posicao - 1].vet != NULL)
         {
             // testar se a estrutura auxiliar tem espaço para inserir
-            if(vetorPrincipal[posicao - 1]->posAtual == vetorPrincipal[posicao - 1]->tamanho)
+            if(vetorPrincipal[posicao - 1].posAtual == vetorPrincipal[posicao - 1].tamanho)
             {
-                printf("Sem espaço disponível na posição %d da estrutura principal\n", posicao); //Debug
+                printf("Sem espaço disponivel na posicao %d da estrutura principal\n", posicao); //Debug
                 return SEM_ESPACO;
             }
 
             else // caso haja espaco, insere o valor na posição atual da estrutura auxilixar
             {
-                printf("inserindo %dna posição %d da estrutura principal...\n", valor, posicao); //Debug
-                vetorPrincipal[posicao - 1]->vet[vetorPrincipal[posicao - 1]->posAtual] = valor;
-                printf("Valor %d inserido com sucesso na posição %d da estrutura principal\n",*(vetorPrincipal[posicao - 1]->vet + vetorPrincipal[posicao - 1]->posAtual), posicao); //Debug
-                vetorPrincipal[posicao - 1]->posAtual++;
+                printf("inserindo %d na posicao %d da estrutura principal...\n", valor, posicao); //Debug
+                vetorPrincipal[posicao - 1].vet[vetorPrincipal[posicao - 1].posAtual] = valor;
+                printf("Valor %d inserido com sucesso na posicao %d da estrutura principal\n",*(vetorPrincipal[posicao - 1].vet + vetorPrincipal[posicao - 1].posAtual), posicao); //Debug
+                vetorPrincipal[posicao - 1].posAtual++;
                 return SUCESSO;
             }
         }
         else
         {
-            printf("Não há estrutura auxiliar na posição %d\n", posicao); //Debug
+            printf("Nao ha estrutura auxiliar na posicao %d\n", posicao); //Debug
             return SEM_ESTRUTURA_AUXILIAR;
         }
     }
