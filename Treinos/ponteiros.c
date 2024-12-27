@@ -89,9 +89,9 @@ int main(void) {
     int  *vetorPoint[5]; //array de ponteiros (este exemplo é um array com 5 ponteiros para inteiros)
     // ex de uso:
     int *coords[2];
-    int x=10, y=[2] = (20,30);
+    int x=10, y[2] = (20,30);
     coords[0]= &x;
-    coord[1]=y;
+    coords[1]=y;
 
     printf("coords[0]= %p\n", coords[0]); //&x
     printf("coords[1]= %p\n", coords[1]); //&y[0]
