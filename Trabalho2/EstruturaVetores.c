@@ -20,9 +20,9 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 */
 void inicializar()
 {
-    vetorPrincipal = malloc(sizeof(estrutura) * TAM);
+    vetorPrincipal = malloc(sizeof(estrutura) * TAM); // Aloca o espaço de memória para o vetor principal
 
-    // Inicializa todos os ponteiros de estruturas auxiliares com estruturas vazias
+    // Inicializa todos os ponteiros de estruturas auxiliares com estruturas vazias (NULL), a posição atual com 0 (inicial) e o tamanho com 0 (já que ainda não foi alocada)
     for(int i = 0; i < TAM; i++){
         vetorPrincipal[i].vet = NULL;
         vetorPrincipal[i].posAtual = 0;
