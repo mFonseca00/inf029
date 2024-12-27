@@ -27,7 +27,7 @@ int main()
     testeRetornarTodosNumeros();
     testeMudarTamanhoEstrutura(); // até aqui ok
     testeListaEncadeada();
-    // finalizar();
+    finalizar();
 }
 int ligado = 1;
 void show_log(char *str)

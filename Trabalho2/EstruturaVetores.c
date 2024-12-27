@@ -458,6 +458,34 @@ int getQuantidadeElementosEstruturaAuxiliar(int posicao)
     return vetorPrincipal[posicao-1].posAtual;
 }
 
+// Fução para inserir no fim da lista encadeada com cabeçote
+void inserir_no_fim(No **cabecote, int valor){
+    No *novo = (No*)malloc(sizeof(No));// Aloca memória para o novo no
+    if(novo == NULL){
+        printf("Erro ao alocar memória\n");
+        return;
+    }
+
+    novo->conteudo = valor; // Insere o valor
+    novo->prox = NULL; // Insere o ponteiro para o proximo elemento (elemento nulo, pois será o ultimo elemento)
+
+    // É o primeiro elemento da lista? Adiciona o nó como o inicio da lista
+    if((*cabecote) == NULL){
+        (*cabecote) = novo; // Atualiza o ponteiro para o inicio da lista para o novo nó (cabeçote aponta para nó criado)
+        return;
+    }
+
+    // Nao é o primeiro elemento da lista? Adiciona o nó como ultimo elemento da lista
+    else{
+        No *aux = *cabecote; // Cria um ponteiro auxiliar para percorrer a lista
+        while(aux->prox != NULL){ // Enquanto o proximo elemento nao for nulo, percorre a lista
+            aux = aux->prox; // Atualiza o ponteiro auxiliar para o proximo elemento
+        }
+        aux->prox = novo; // Insere o ponteiro para o proximo elemento (elemento criado)
+        return;
+    }
+}
+
 /*
 Objetivo: montar a lista encadeada com cabeçote com todos os números presentes em todas as estruturas.
 
@@ -467,17 +495,41 @@ Retorno (No*)
 */
 No *montarListaEncadeadaComCabecote()
 {
+    No *cabecote = NULL; // Inicializa o cabeçote como NULL, caso não encontre nenhum elemento, irá retornar NULL
 
-    return NULL;
+    // Criando cabeçote
+    cabecote = (No*)malloc(sizeof(No));
+    if(cabecote == NULL){
+        printf("Erro ao alocar memória\n");
+        return NULL;
+    }
+    cabecote->prox = NULL;
+    cabecote->conteudo = -1;
+
+    // Percorrendo as estruturas auxiliares
+    for(int i = 0; i < TAM; i++){
+        if(vetorPrincipal[i].vet != NULL){ // Verifica se existe um vetor auxiliar nessa posição
+            for(int j = 0; j < vetorPrincipal[i].posAtual; j++){ // Percorre o vetor auxiliar
+                inserir_no_fim(&cabecote, vetorPrincipal[i].vet[j]); // Insere o elemento no fim da lista
+            }
+        }
+    }
+    return cabecote;
 }
 
 /*
 Objetivo: retorna os números da lista enceada com cabeçote armazenando em vetorAux.
 Retorno void
 */
-void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[])
+void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]) // (Listagem dos elementos da lista montada com cabeçote)
 {
-
+    int i = 0;
+    No *aux = inicio->prox; // Inicializa a variável auxiliar para percorrer a lista encadeada desconsiderando o cabeçote
+    while(aux != NULL){ // Enquanto o elemento da lista nao apontar para NULL
+        vetorAux[i] = aux->conteudo; // Insere o elemento no vetor
+        aux = aux->prox; // Atualiza o ponteiro auxiliar para o proximo elemento
+        i++;
+    }
 }
 
 /*
@@ -489,7 +541,13 @@ Retorno
 */
 void destruirListaEncadeadaComCabecote(No **inicio)
 {
-
+    No *aux = *inicio; // Cria um ponteiro auxiliar para percorrer a lista
+    while(aux != NULL){ // Enquanto o ponteiro auxiliar nao for nulo, percorre a lista
+        No *temp = aux; // Cria um ponteiro auxiliar para armazenar o ponteiro auxiliar atual
+        aux = aux->prox; // Atualiza o ponteiro auxiliar para o proximo elemento
+        free(temp); // Libera a memória do ponteiro auxiliar
+    }
+    *inicio = NULL; // Atualiza o ponteiro para o inicio da lista para NULL (não existe nenhum elemento na lista)
 }
 
 /*
@@ -498,5 +556,10 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 */
 void finalizar()
 {
-
+    for(int i = 0; i < TAM; i++){
+        if(vetorPrincipal[i].vet != NULL){
+            free(vetorPrincipal[i].vet); // Libera a memória do vetor auxiliar
+        }
+    }
+    free(vetorPrincipal); // Libera a memória do vetor principal
 }
