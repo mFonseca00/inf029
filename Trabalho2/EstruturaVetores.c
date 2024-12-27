@@ -559,7 +559,9 @@ void finalizar()
     for(int i = 0; i < TAM; i++){
         if(vetorPrincipal[i].vet != NULL){
             free(vetorPrincipal[i].vet); // Libera a memória do vetor auxiliar
+            vetorPrincipal[i].vet = NULL; // Atualiza o ponteiro para o vetor auxiliar para NULL
         }
     }
     free(vetorPrincipal); // Libera a memória do vetor principal
+    vetorPrincipal = NULL; // Atualiza o ponteiro para o vetor principal para NULL
 }
