@@ -55,9 +55,10 @@ int main()
         case 0:
         {
             sair = 1;
+            
             // ***Salvamento dos dados no arquivo***
             salvarArquivo(save);
-            
+
             finalizar();
             break;
         }
