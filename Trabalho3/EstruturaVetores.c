@@ -550,6 +550,60 @@ void destruirListaEncadeadaComCabecote(No **inicio)
     *inicio = NULL; // Atualiza o ponteiro para o inicio da lista para NULL (não existe nenhum elemento na lista)
 }
 
+/* 
+Objetivo: Funções para a leitura e escrita no 
+arquivo de salvamento das estruturas
+
+Retorno
+    -1  -ERRO ao abrir
+    0   -Nenhum valor registrado (estrutura principal vazia)
+    1   -Sucesso na operação
+
+*/
+
+//VERIFICAR SE DEVE SER USADO . ou ->
+
+int lerArquivo(const char* filename){
+    FILE* fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Erro ao abrir o arquivo para leitura\n");
+        return -1;
+    }
+
+    // leitura
+
+}
+
+int salvarArquivo(const char* filename){
+    FILE* fp = fopen(filename, "w");
+    if (fp == NULL) {
+        printf("Erro ao abrir o arquivo para escrita\n");
+        return -1;
+    }
+
+    int cont=0;
+
+    for(int i=0; i<TAM; i++){ // Varre o array da estrutura principal
+        if(vetorPrincipal[i]){
+            fprint(fp, "%d %d %d ", i, vetorPrincipal[i]->posAtual, vetorPrincipal[i]->tamanho); // registra a posição da estrutura auxiliar, a quantidade de elementos e o tamanho dela
+            for(int j=0; j<vetorPrincipal[i]->posAtual; j++){ // Varre cada estrutura auxiliar
+                fprintf(fp, "%d ", vetorPrincipal[i]->vet[j]); // Salva os valores presentes na estrutura auxiliar
+            }
+            fprintf(fp,"\n");
+            cont++;
+        }
+    }
+    if(cont==0){ // Verifica se algo foi salvo no arquivo
+        printf("Nenhum valor foi registrado, estrutura principal vazia\n"); // DEBUG
+        return 0;
+    }
+    
+    printf("Valores registrados\n"); // DEBUG
+    fclose(fp);
+
+    return 1;
+}
+
 /*
 Objetivo: finaliza o programa. deve ser chamado ao final do programa 
 para poder liberar todos os espaços de memória das estruturas auxiliares.
