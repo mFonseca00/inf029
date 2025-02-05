@@ -15,7 +15,6 @@ int menu()
     printf("1 - Inserir\n");
     printf("2 - Excluir\n");
     printf("3 - Listar uma estrutura\n");
-    printf("4 - Dobrar Numero\n");
     printf("5 - \n");
     scanf("%d", &op);
     return op;
@@ -41,11 +40,12 @@ int main()
     inicializar();
     
     // ***Leitura do arquivo***
-    lerArquivo(save);
+    ret = lerArquivo(save);
 
     int op;
     int sair = 0;
     int ret;
+    int pos,valor;
 
     while (!sair)
     {
@@ -57,33 +57,63 @@ int main()
             sair = 1;
             
             // ***Salvamento dos dados no arquivo***
-            salvarArquivo(save);
+            ret = salvarArquivo(save);
+            if(ret == 1){
+                printf("Arquivo salvo com sucesso\n");
+            }
+            else{
+                printf("Erro ao salvar\n");
+            }
 
             finalizar();
             break;
         }
         case 1:
         { //inserir
-            //TODO
-            ret = inserirNumeroEmEstrutura(5, 25);
+            printf("Digite uma posição da estrutura principal e, em seguida, um número para inserir (1..10):\t");
+            scanf("%d %d",&pos,&valor)
+            ret = inserirNumeroEmEstrutura(pos, valor);
+
             if (ret == SUCESSO)
             {
-                printf("Inserido com sucesso");
+                printf("Inserido com sucesso\n");
             }
             else if (ret == SEM_ESPACO)
             {
-                printf("Sem Espaço");
+                printf("Sem Espaço\n");
             }
             else if (ret == SEM_ESTRUTURA_AUXILIAR)
             {
-                printf("Sem estrutura Auxiliar");
+                printf("Sem estrutura Auxiliar\n");
+            }
+            else if (ret == POSICAO_INVALIDA)
+            {
+                printf("Posição inválida para estrutura auxiliar\n");
             }
             break;
         }
 
         case 2:
         { //excluir
-            //TODO
+            printf("Insira a posição da estrutura principal da qual deseja remover um valor (1..10):\t");
+            scanf("%d",&pos);
+            ret = excluirNumeroDoFinaldaEstrutura(pos);
+            if (ret == SUCESSO)
+            {
+                printf("Inserido com sucesso\n");
+            }
+            else if (ret == ESTRUTURA_AUXILIAR_VAZIA)
+            {
+                printf("estrutura vazia\n");
+            }
+            else if (ret == SEM_ESTRUTURA_AUXILIAR)
+            {
+                printf("Sem estrutura Auxiliar\n");
+            }
+            else if (ret == POSICAO_INVALIDA)
+            {
+                printf("Posição inválida para estrutura auxiliar\n");
+            }
             break;
         }
 
@@ -115,21 +145,6 @@ int main()
                     }
                 }
             }
-            break;
-        }
-
-        case 10:
-        { //dobrar
-            //ler um numero
-            int valor;
-            scanf("%i", &valor);
-
-            dobrar(&valor);
-
-            //passar para um funcao (void dobrar(...)) que recebe o numero e dobra (EstruturaVetores.c)
-
-            printf("%i", valor);
-
             break;
         }
 
