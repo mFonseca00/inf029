@@ -555,26 +555,64 @@ Objetivo: Funções para a leitura e escrita no
 arquivo de salvamento das estruturas
 
 Retorno
+    -2  -ERRO na leitura
     -1  -ERRO ao abrir
     0   -Nenhum valor registrado (estrutura principal vazia)
     1   -Sucesso na operação
 
 */
 
-//VERIFICAR SE DEVE SER USADO . ou ->
+//VERIFICAR SE DEVE SER USADO . ou -> (estou usando . , cnoforme funções anteriores)
 
-int lerArquivo(const char* filename){
+int lerArquivo(const char *filename){
     FILE* fp = fopen(filename, "r");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo para leitura\n");
         return -1;
     }
 
-    // leitura
+    int index, qtdElementos, tamanho, valor, retAux;
+
+    while (fscanf(fp, "%d %d %d", &index, &qtdElementos, &tamanho)==3){
+        if(index<0 || index>TAM){
+            printf("Índice inválido\n"); // DEBUG
+            fclose(fp);
+            return -2;
+        }
+
+        // Criação da estrutura auxiliar do atual index
+        printf("Criando estrutura auxiliar com tamanho %d na posição %d...\n", tamanho, index); // DEBUG
+        retAux = criarEstruturaAuxiliar(index, tamanho);
+        if(retAux != SUCESSO){ // Verifica se a estrutura auxiliar foi criada com sucesso
+            printf("Erro ao criar estrutura auxiliar\n"); // DEBUG
+            fclose(fp);
+            return -2;
+        }
+
+        // Salvando valores do atual index na estrutura auxiliar
+        if(qtdElementos>0){
+            printf("Inserindo %d elementos na estrutura auxiliar da posição %d...\n", qtdElementos, index); // DEBUG
+            for(int i=0; i<qtdElementos;i++){
+                if(fscanf(fp, "%d",&valor) != 1){ // Verifica se foi armazenado o valor
+                    printf("Erro ao ler %d° valor da estrutura auxiliar de posição %d\n", i, index); // DEBUG
+                }
+                retAux = inserirNumeroEmEstrutura(index, valor);
+                if(retAux != SUCESSO){ // Verifica se o valor foi inserido
+                    printf("Erro ao inserir %d° valor (%d) na estrutura auxiliar de posição %d\n", i, valor, index); // DEBUG
+                }
+            }
+        }
+        else{
+            printf("Não há elementos para inserir na estrutura auxiliar.\n"); // DEBUG
+        }
+        fclose(fp);
+
+        return 1;
+    }
 
 }
 
-int salvarArquivo(const char* filename){
+int salvarArquivo(const char *filename){
     FILE* fp = fopen(filename, "w");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo para escrita\n");
