@@ -582,7 +582,7 @@ int lerArquivo(const char *filename){ //Main não esta lendo - aparentemente nã
 
         // Criação da estrutura auxiliar do atual index
         printf("Criando estrutura auxiliar com tamanho %d na posição %d...\n", tamanho, index); // DEBUG
-        retAux = criarEstruturaAuxiliar(index, tamanho);
+        retAux = criarEstruturaAuxiliar(index, tamanho);//incrementando 1 no index, criou
         if(retAux != SUCESSO){ // Verifica se a estrutura auxiliar foi criada com sucesso
             printf("Erro ao criar estrutura auxiliar\n"); // DEBUG
             fclose(fp);
