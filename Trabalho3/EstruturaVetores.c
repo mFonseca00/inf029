@@ -564,7 +564,7 @@ Retorno
 
 //VERIFICAR SE DEVE SER USADO . ou -> (estou usando . , cnoforme funções anteriores)
 
-int lerArquivo(const char *filename){
+int lerArquivo(const char *filename){ //Main não esta lendo - aparentemente não esta criando as estruturas auxiliares
     FILE* fp = fopen(filename, "r");
     if (fp == NULL) {
         printf("Erro ao abrir o arquivo para leitura\n");
@@ -622,14 +622,14 @@ int salvarArquivo(const char *filename){
     int cont=0;
 
     for(int i=0; i<TAM; i++){ // Varre o array da estrutura principal
-        if(vetorPrincipal[i]){
-            fprint(fp, "%d %d %d ", i, vetorPrincipal[i].posAtual, vetorPrincipal[i].tamanho); // registra a posição da estrutura auxiliar, a quantidade de elementos e o tamanho dela
-            for(int j=0; j<vetorPrincipal[i]->posAtual; j++){ // Varre cada estrutura auxiliar
+        // if(vetorPrincipal[i]!=NULL){
+            fprintf(fp, "%d %d %d ", i, vetorPrincipal[i].posAtual, vetorPrincipal[i].tamanho); // registra a posição da estrutura auxiliar, a quantidade de elementos e o tamanho dela
+            for(int j=0; j<vetorPrincipal[i].posAtual; j++){ // Varre cada estrutura auxiliar
                 fprintf(fp, "%d ", vetorPrincipal[i].vet[j]); // Salva os valores presentes na estrutura auxiliar
             }
             fprintf(fp,"\n");
             cont++;
-        }
+        // }
     }
     if(cont==0){ // Verifica se algo foi salvo no arquivo
         printf("Nenhum valor foi registrado, estrutura principal vazia\n"); // DEBUG

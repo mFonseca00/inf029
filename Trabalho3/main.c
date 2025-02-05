@@ -40,7 +40,7 @@ int main()
     inicializar();
     
     // ***Leitura do arquivo***
-    ret = lerArquivo(save);
+    lerArquivo(save);
 
     int op;
     int sair = 0;
@@ -70,8 +70,11 @@ int main()
         }
         case 1:
         { //inserir
-            printf("Digite uma posição da estrutura principal e, em seguida, um número para inserir (1..10):\t");
-            scanf("%d %d",&pos,&valor)
+            printf("Digite uma posição da estrutura principal (1..10) e, em seguida, um número para inserir:\t");
+            scanf("%d %d",&pos,&valor);
+            // criar estrutura
+            // criarEstruturaAuxiliar(pos,10);
+
             ret = inserirNumeroEmEstrutura(pos, valor);
 
             if (ret == SUCESSO)
