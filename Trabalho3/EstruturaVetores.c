@@ -585,9 +585,9 @@ int salvarArquivo(const char* filename){
 
     for(int i=0; i<TAM; i++){ // Varre o array da estrutura principal
         if(vetorPrincipal[i]){
-            fprint(fp, "%d %d %d ", i, vetorPrincipal[i]->posAtual, vetorPrincipal[i]->tamanho); // registra a posição da estrutura auxiliar, a quantidade de elementos e o tamanho dela
+            fprint(fp, "%d %d %d ", i, vetorPrincipal[i].posAtual, vetorPrincipal[i].tamanho); // registra a posição da estrutura auxiliar, a quantidade de elementos e o tamanho dela
             for(int j=0; j<vetorPrincipal[i]->posAtual; j++){ // Varre cada estrutura auxiliar
-                fprintf(fp, "%d ", vetorPrincipal[i]->vet[j]); // Salva os valores presentes na estrutura auxiliar
+                fprintf(fp, "%d ", vetorPrincipal[i].vet[j]); // Salva os valores presentes na estrutura auxiliar
             }
             fprintf(fp,"\n");
             cont++;
