@@ -41,7 +41,7 @@ int main()
     inicializar();
     
     // ***Leitura do arquivo***
-    // Inserir função para leitura do arquivo salvo e carregar os dados
+    lerArquivo(save);
 
     int op;
     int sair = 0;
@@ -56,7 +56,8 @@ int main()
         {
             sair = 1;
             // ***Salvamento dos dados no arquivo***
-            // Inserir função para salvar os dados
+            salvarArquivo(save);
+            
             finalizar();
             break;
         }
