@@ -20,6 +20,20 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 */
 void inicializar()
 {
+    const char *save = "dados.txt"; // ponteiro para armazenar o nome do arquivo
+    FILE *fp; // ponteiro para apontar para o arquivo
+    fp = fopen(save, "r"); // Abre o arquivo no modo leitura para verificar se existe
+    if(fp == NULL){
+        printf("Arquivo '%s' não encontrado. Criando um novo arquivo.\n", save);
+        fopen(save, "w"); // Abre o arquivo no modo escrita para criar ele
+        if (fp == NULL) {
+            perror("Erro ao criar o arquivo");
+            return 1;
+        }
+        printf("Arquivo '%s' criado com sucesso.\n", save);
+    }
+    fclose(fp); // Fecha o arquivo aberto
+
     vetorPrincipal = malloc(sizeof(estrutura) * TAM); // Aloca o espaço de memória para o vetor principal
 
     // Inicializa todos os ponteiros de estruturas auxiliares com estruturas vazias (NULL), a posição atual com 0 (inicial) e o tamanho com 0 (já que ainda não foi alocada)
@@ -28,6 +42,8 @@ void inicializar()
         vetorPrincipal[i].posAtual = 0;
         vetorPrincipal[i].tamanho = 0;
     }
+
+    lerArquivo(save);
 }
 
 // Função para trocar dois elementos de posição em um vetor
@@ -574,6 +590,7 @@ int lerArquivo(const char *filename){ //Main não esta lendo - aparentemente nã
     int index, qtdElementos, tamanho, valor, retAux;
 
     while (fscanf(fp, "%d %d %d", &index, &qtdElementos, &tamanho)==3){
+        index++;
         if(index<0 || index>TAM){
             printf("Índice inválido\n"); // DEBUG
             fclose(fp);
@@ -581,34 +598,48 @@ int lerArquivo(const char *filename){ //Main não esta lendo - aparentemente nã
         }
 
         // Criação da estrutura auxiliar do atual index
-        printf("Criando estrutura auxiliar com tamanho %d na posição %d...\n", tamanho, index); // DEBUG
-        retAux = criarEstruturaAuxiliar(index, tamanho);//incrementando 1 no index, criou
-        if(retAux != SUCESSO){ // Verifica se a estrutura auxiliar foi criada com sucesso
-            printf("Erro ao criar estrutura auxiliar\n"); // DEBUG
-            fclose(fp);
-            return -2;
-        }
-
-        // Salvando valores do atual index na estrutura auxiliar
-        if(qtdElementos>0){
-            printf("Inserindo %d elementos na estrutura auxiliar da posição %d...\n", qtdElementos, index); // DEBUG
-            for(int i=0; i<qtdElementos;i++){
-                if(fscanf(fp, "%d",&valor) != 1){ // Verifica se foi armazenado o valor
-                    printf("Erro ao ler %d° valor da estrutura auxiliar de posição %d\n", i, index); // DEBUG
+        if(tamanho>0){ //add
+            printf("Criando estrutura auxiliar com tamanho %d na posição %d...\n", tamanho, index); // DEBUG
+            retAux = criarEstruturaAuxiliar(index, tamanho);//incrementando 1 no index, criou
+            if(retAux != SUCESSO){ // Verifica se a estrutura auxiliar foi criada com sucesso
+                printf("Erro ao criar estrutura auxiliar: \t"); // DEBUG
+                if(retAux == JA_TEM_ESTRUTURA_AUXILIAR){
+                    printf("já tem estrutura na posição\n");
                 }
-                retAux = inserirNumeroEmEstrutura(index, valor);
-                if(retAux != SUCESSO){ // Verifica se o valor foi inserido
-                    printf("Erro ao inserir %d° valor (%d) na estrutura auxiliar de posição %d\n", i, valor, index); // DEBUG
+                else if(retAux == POSICAO_INVALIDA){
+                    printf("Posição inválida para estrutura auxiliar\n");
+                }
+                else if(retAux == SEM_ESPACO_DE_MEMORIA){
+                    printf("Sem espaço de memória\n");
+                }
+                else if(retAux == TAMANHO_INVALIDO){
+                    printf("o tamanho deve ser maior ou igual a 1\n");
                 }
             }
+            // Salvando valores do atual index na estrutura auxiliar
+            if(qtdElementos>0){
+                printf("Inserindo %d elementos na estrutura auxiliar da posição %d...\n", qtdElementos, index); // DEBUG
+                for(int i=0; i<qtdElementos;i++){
+                    if(fscanf(fp, "%d",&valor) != 1){ // Verifica se foi armazenado o valor
+                        printf("Erro ao ler %d° valor da estrutura auxiliar de posição %d\n", i, index); // DEBUG
+                    }
+                    retAux = inserirNumeroEmEstrutura(index, valor);
+                    if(retAux != SUCESSO){ // Verifica se o valor foi inserido
+                        printf("Erro ao inserir %d° valor (%d) na estrutura auxiliar de posição %d\n", i, valor, index); // DEBUG
+                    }
+                }
+            }
+            else{
+                printf("Não há elementos para inserir na estrutura auxiliar.\n"); // DEBUG
+            }
         }
-        else{
-            printf("Não há elementos para inserir na estrutura auxiliar.\n"); // DEBUG
-        }
-        fclose(fp);
 
-        return 1;
+        
     }
+
+    fclose(fp);
+
+    return 1;
 
 }
 
@@ -648,6 +679,15 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 */
 void finalizar()
 {
+    // ***Salvamento dos dados no arquivo***
+    ret = salvarArquivo(save);
+    if(ret == 1){
+        printf("Arquivo salvo com sucesso\n");
+    }
+    else{
+        printf("Erro ao salvar\n");
+    }
+
     for(int i = 0; i < TAM; i++){
         if(vetorPrincipal[i].vet != NULL){
             free(vetorPrincipal[i].vet); // Libera a memória do vetor auxiliar

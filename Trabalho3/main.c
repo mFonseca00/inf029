@@ -73,7 +73,7 @@ int main()
             printf("Digite uma posição da estrutura principal (1..10) e, em seguida, um número para inserir:\t");
             scanf("%d %d",&pos,&valor);
             // criar estrutura
-            // criarEstruturaAuxiliar(pos,10);
+            criarEstruturaAuxiliar(pos,10);
 
             ret = inserirNumeroEmEstrutura(pos, valor);
 
