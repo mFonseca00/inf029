@@ -28,7 +28,6 @@ void inicializar()
         fopen(save, "w"); // Abre o arquivo no modo escrita para criar ele
         if (fp == NULL) {
             perror("Erro ao criar o arquivo");
-            return 1;
         }
         printf("Arquivo '%s' criado com sucesso.\n", save);
     }
@@ -680,6 +679,8 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 void finalizar()
 {
     // ***Salvamento dos dados no arquivo***
+    int ret;
+    const char *save = "dados.txt"; // ponteiro para armazenar o nome do arquivo
     ret = salvarArquivo(save);
     if(ret == 1){
         printf("Arquivo salvo com sucesso\n");

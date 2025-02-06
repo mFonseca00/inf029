@@ -15,21 +15,6 @@ typedef struct estrutura{
 
 estrutura *vetorPrincipal;//vetor de ponteiro que aponta para as estruturas auxiliares
 
-/*
-Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
-*/
-void inicializar()
-{
-    vetorPrincipal = malloc(sizeof(estrutura) * TAM); // Aloca o espaço de memória para o vetor principal
-
-    // Inicializa todos os ponteiros de estruturas auxiliares com estruturas vazias (NULL), a posição atual com 0 (inicial) e o tamanho com 0 (já que ainda não foi alocada)
-    for(int i = 0; i < TAM; i++){
-        vetorPrincipal[i].vet = NULL;
-        vetorPrincipal[i].posAtual = 0;
-        vetorPrincipal[i].tamanho = 0;
-    }
-}
-
 // Função para trocar dois elementos de posição em um vetor
 void swap(int *a, int *b) {
     int temp = *a;
@@ -551,11 +536,48 @@ void destruirListaEncadeadaComCabecote(No **inicio)
 }
 
 /*
+Objetivo: inicializa o programa. deve ser chamado ao inicio do programa 
+*/
+void inicializar()
+{
+    vetorPrincipal = malloc(sizeof(estrutura) * TAM); // Aloca o espaço de memória para o vetor principal
+
+    // ***Abertura do arquivo***
+    const char *save = "dados.txt"; // ponteiro para armazenar o nome do arquivo
+    FILE *fp; // ponteiro para apontar para o arquivo
+    fp = fopen(save, "r"); // Abre o arquivo no modo leitura para verificar se existe
+    if(fp == NULL){
+        printf("Arquivo '%s' não encontrado. Criando um novo arquivo.\n", save);
+        fopen(save, "w"); // Abre o arquivo no modo escrita para criar ele
+        if (fp == NULL) {
+            perror("Erro ao criar o arquivo");
+            return 1;
+        }
+        printf("Arquivo '%s' criado com sucesso.\n", save);
+    }
+    fclose(fp); // Fecha o arquivo aberto
+
+    // Inicializa todos os ponteiros de estruturas auxiliares com estruturas vazias (NULL), a posição atual com 0 (inicial) e o tamanho com 0 (já que ainda não foi alocada)
+    for(int i = 0; i < TAM; i++){
+        vetorPrincipal[i].vet = NULL;
+        vetorPrincipal[i].posAtual = 0;
+        vetorPrincipal[i].tamanho = 0;
+    }
+    int ret;
+    // ***Leitura do arquivo***
+    ret = lerArquivo(save);
+}
+
+/*
 Objetivo: finaliza o programa. deve ser chamado ao final do programa 
 para poder liberar todos os espaços de memória das estruturas auxiliares.
 */
 void finalizar()
 {
+    int ret;
+    const char *save = "dados.txt"; // ponteiro para armazenar o nome do arquivo
+    ret = salvarArquivo(save);
+
     for(int i = 0; i < TAM; i++){
         if(vetorPrincipal[i].vet != NULL){
             free(vetorPrincipal[i].vet); // Libera a memória do vetor auxiliar
