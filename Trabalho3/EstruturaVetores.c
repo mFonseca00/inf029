@@ -25,7 +25,7 @@ void inicializar()
     fp = fopen(save, "r"); // Abre o arquivo no modo leitura para verificar se existe
     if(fp == NULL){
         printf("Arquivo '%s' não encontrado. Criando um novo arquivo.\n", save);
-        fopen(save, "w"); // Abre o arquivo no modo escrita para criar ele
+        fp = fopen(save, "w"); // Abre o arquivo no modo escrita para criar ele
         if (fp == NULL) {
             perror("Erro ao criar o arquivo");
         }
